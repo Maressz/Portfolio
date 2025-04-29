@@ -93,11 +93,31 @@
         
         .video-container {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
         
         .video-container:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(137, 204, 212, 0.2);
+        }
+        
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            background: #000;
+        }
+        
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
         }
         
         .gallery-item {
@@ -129,7 +149,7 @@
         }
         
         .submit-btn {
-            background: linear gradient(135deg, #4395A7 0%, #89CCD4 100%);
+            background: linear-gradient(135deg, #4395A7 0%, #89CCD4 100%);
             transition: all 0.3s ease;
         }
         
@@ -165,6 +185,19 @@
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
+        }
+        
+        .video-title {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 500;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 5px 10px;
+            border-radius: 4px;
+            z-index: 10;
         }
     </style>
 </head>
@@ -225,30 +258,54 @@
             
             <div class="space-y-20">
                 <!-- Video 1 -->
-                <div class="video-container rounded-xl overflow-hidden">
-                    <div class="aspect-w-16 aspect-h-9">
-                        <iframe src="https://player.vimeo.com/video/672767070?autoplay=1&loop=1&muted=1&controls=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen class="w-full h-[500px]"></iframe>
+                <div class="video-container">
+                    <div class="video-wrapper">
+                        <iframe src="https://player.vimeo.com/video/672767070?autoplay=1&loop=1&muted=1&controls=1&title=0&byline=0&portrait=0&background=1" 
+                                frameborder="0" 
+                                allow="autoplay; fullscreen" 
+                                allowfullscreen
+                                webkitallowfullscreen
+                                mozallowfullscreen></iframe>
+                        <div class="video-title">Motion Design Reel 2023</div>
                     </div>
                 </div>
                 
                 <!-- Video 2 -->
-                <div class="video-container rounded-xl overflow-hidden">
-                    <div class="aspect-w-16 aspect-h-9">
-                        <iframe src="https://player.vimeo.com/video/767413928?autoplay=1&loop=1&muted=1&controls=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen class="w-full h-[500px]"></iframe>
+                <div class="video-container">
+                    <div class="video-wrapper">
+                        <iframe src="https://player.vimeo.com/video/767413928?autoplay=1&loop=1&muted=1&controls=1&title=0&byline=0&portrait=0&background=1" 
+                                frameborder="0" 
+                                allow="autoplay; fullscreen" 
+                                allowfullscreen
+                                webkitallowfullscreen
+                                mozallowfullscreen></iframe>
+                        <div class="video-title">Brand Animation</div>
                     </div>
                 </div>
                 
                 <!-- Video 3 -->
-                <div class="video-container rounded-xl overflow-hidden">
-                    <div class="aspect-w-16 aspect-h-9">
-                        <iframe src="https://player.vimeo.com/video/767417042?autoplay=1&loop=1&muted=1&controls=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen class="w-full h-[500px]"></iframe>
+                <div class="video-container">
+                    <div class="video-wrapper">
+                        <iframe src="https://player.vimeo.com/video/767417042?autoplay=1&loop=1&muted=1&controls=1&title=0&byline=0&portrait=0&background=1" 
+                                frameborder="0" 
+                                allow="autoplay; fullscreen" 
+                                allowfullscreen
+                                webkitallowfullscreen
+                                mozallowfullscreen></iframe>
+                        <div class="video-title">3D Product Showcase</div>
                     </div>
                 </div>
                 
                 <!-- Video 4 -->
-                <div class="video-container rounded-xl overflow-hidden">
-                    <div class="aspect-w-16 aspect-h-9">
-                        <iframe src="https://player.vimeo.com/video/767414516?autoplay=1&loop=1&muted=1&controls=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen class="w-full h-[500px]"></iframe>
+                <div class="video-container">
+                    <div class="video-wrapper">
+                        <iframe src="https://player.vimeo.com/video/767414516?autoplay=1&loop=1&muted=1&controls=1&title=0&byline=0&portrait=0&background=1" 
+                                frameborder="0" 
+                                allow="autoplay; fullscreen" 
+                                allowfullscreen
+                                webkitallowfullscreen
+                                mozallowfullscreen></iframe>
+                        <div class="video-title">Typography Animation</div>
                     </div>
                 </div>
             </div>
@@ -284,12 +341,12 @@
                 
                 <!-- Gallery Item 5 -->
                 <div class="gallery-item rounded-xl overflow-hidden">
-                    <img src="https://scontent-gig4-2.cdninstagram.com/v/t51.29350-15/120065777_657139355187590_7243292012411719064_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6IkZFRUQuaW1hZ2VfdXJsZ2VuLjEwODB4MTA4MC5zZHIuZjI5MzUwLmRlZmF1bHRfaW1hZ2UifQ&_nc_ht=scontent-gig4-2.cdninstagram.com&_nc_cat=102&_nc_oc=Q6cZ2QEj-u0_La1qCmmbFBH2j3Dbcw5RUUerWu1a0BohPIQGBqz2ilTWpwWH1ikyKC-3OK3Yfbgip_k0iXbRjNnrbwtM&_nc_ohc=5X2qsEGMQsAQ7kNvwECOPM3&_nc_gid=BT_gTFo6_i0grfEek10W0A&edm=AP4sbd4BAAAA&ccb=7-5&ig_cache_key=MjQwNTYyMzA4NDk4NTE5NDAyMg%3D%3D.3-ccb7-5&oh=00_AfE5vDkMfgho0F5KJ3GxYWlUcBPsrDbPTI5SVwSERuzNwQ&oe=68170AF4&_nc_sid=7a9f4b" alt="Design Work 5" class="w-full h-full object-cover">
+                    <img src="https://scontent-gig4-2.cdninstagram.com/v/t51.29350-15/120065777_657139355187590_7243292012411719064_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6IkZFRUQuaW1hZ2VfdXJsZ2VuLjEwODB4MTA4MC.szZHIuZjI5MzUwLmRlZmF1bHRfaW1hZ2UifQ&_nc_ht=scontent-gig4-2.cdninstagram.com&_nc_cat=102&_nc_oc=Q6cZ2QEj-u0_La1qCmmbFBH2j3Dbcw5RUUerWu1a0BohPIQGBqz2ilTWpwWH1ikyKC-3OK3Yfbgip_k0iXbRjNnrbwtM&_nc_ohc=5X2qsEGMQsAQ7kNvwECOPM3&_nc_gid=BT_gTFo6_i0grfEek10W0A&edm=AP4sbd4BAAAA&ccb=7-5&ig_cache_key=MjQwNTYyMzA4NDk4NTE5NDAyMg%3D%3D.3-ccb7-5&oh=00_AfE5vDkMfgho0F5KJ3GxYWlUcBPsrDbPTI5SVwSERuzNwQ&oe=68170AF4&_nc_sid=7a9f4b" alt="Design Work 5" class="w-full h-full object-cover">
                 </div>
                 
                 <!-- Gallery Item 6 -->
                 <div class="gallery-item rounded-xl overflow-hidden">
-                    <img src="https://scontent-gig4-2.cdninstagram.com/v/t51.29350-15/120077397_151054780031089_2405494876401681638_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6IkZFRUQuaW1aZ2VfdXJsZ2VuLjEwODB4MTA4MC5zZHIuZjI5MzUwLmRlZmF1bHRfaW1hZ2UifQ&_nc_ht=scontent-gig4-2.cdninstagram.com&_nc_cat=101&_nc_oc=Q6cZ2QEj-u0_La1qCmmbFBH2j3Dbcw5RUUerWu1a0BohPIQGBqz2ilTWpwWH1ikyKC-3OK3Yfbgip_k0iXbRjNnrbwtM&_nc_ohc=fTyW6GE4j9YQ7kNvwFerUUC&_nc_gid=BT_gTFo6_i0grfEek10W0A&edm=AP4sbd4BAAAA&ccb=7-5&ig_cache_key=MjQwNTYyMTU3MDk2NzMxNTkxMQ%3D%3D.3-ccb7-5&oh=00_AfHgnUe8z5FtdmtdfSro8ta7SbvsivM50cSPbMl9BkJt9g&oe=68170012&_nc_sid=7a9f4b" alt="Design Work 6" class="w-full h-full object-cover">
+                    <img src="https://scontent-gig4-2.cdninstagram.com/v/t51.29350-15/120077397_151054780031089_2405494876401681638_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6IkZFRUQuaW1hZ2VfdXJsZ2VuLjEwODB4MTA4MC5zZHIuZjI5MzUwLmRlZmF1bHRfaW1hZ2UifQ&_nc_ht=scontent-gig4-2.cdninstagram.com&_nc_cat=101&_nc_oc=Q6cZ2QEj-u0_La1qCmmbFBH2j3Dbcw5RUUerWu1a0BohPIQGBqz2ilTWpwWH1ikyKC-3OK3Yfbgip_k0iXbRjNnrbwtM&_nc_ohc=fTyW6GE4j9YQ7kNvwFerUUC&_nc_gid=BT_gTFo6_i0grfEek10W0A&edm=AP4sbd4BAAAA&ccb=7-5&ig_cache_key=MjQwNTYyMTU3MDk2NzMxNTkxMQ%3D%3D.3-ccb7-5&oh=00_AfHgnUe8z5FtdmtdfSro8ta7SbvsivM50cSPbMl9BkJt9g&oe=68170012&_nc_sid=7a9f4b" alt="Design Work 6" class="w-full h-full object-cover">
                 </div>
             </div>
         </section>
@@ -476,6 +533,12 @@
         // Initialize on DOM load
         document.addEventListener('DOMContentLoaded', () => {
             createParticles();
+            
+            // Load Vimeo API script
+            const tag = document.createElement('script');
+            tag.src = "https://player.vimeo.com/api/player.js";
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
         });
     </script>
 </body>
