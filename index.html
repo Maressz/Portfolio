@@ -9,6 +9,38 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <style>
+
+        /* Ripple circle effect */
+.water-ripple {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(100, 255, 255, 0.6);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9997;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  animation: ripple 1.2s forwards;
+}
+
+@keyframes ripple {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2);
+    opacity: 0;
+  }
+}
+
+@media (hover: none) {
+  .water-ripple {
+    display: none;
+  }
+}
+
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #141313;
@@ -588,5 +620,32 @@
             firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
         });
     </script>
+
+            <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    if (window.matchMedia("(hover: hover)").matches) {
+      let mouseX = 0;
+      let mouseY = 0;
+
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        createRipple();
+      });
+
+      function createRipple() {
+        const ripple = document.createElement('div');
+        ripple.classList.add('water-ripple');
+        ripple.style.left = `${mouseX}px`;
+        ripple.style.top = `${mouseY}px`;
+        document.body.appendChild(ripple);
+
+        setTimeout(() => {
+          ripple.remove();
+        }, 1200);
+      }
+    }
+  });
+</script>
 </body>
 </html>
