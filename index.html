@@ -9,44 +9,43 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <style>
-
         /* Ripple circle effect */
-.water-ripple {
-  position: fixed;
-  width: 40px;
-  height: 40px;
-  border: 2px solid rgba(100, 255, 255, 0.6);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9997;
-  transform: translate(-50%, -50%) scale(0);
-  opacity: 0;
-  animation: ripple 1.2s forwards;
-}
+        .water-ripple {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(100, 255, 255, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9997;
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+            animation: ripple 1.2s forwards;
+        }
 
-@keyframes ripple {
-  0% {
-    transform: translate(-50%, -50%) scale(0);
-    opacity: 0.6;
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(2);
-    opacity: 0;
-  }
-}
+        @keyframes ripple {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 0.6;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(2);
+                opacity: 0;
+            }
+        }
 
-@media (hover: none) {
-  .water-ripple {
-    display: none;
-  }
-}
+        @media (hover: none) {
+            .water-ripple {
+                display: none;
+            }
+        }
 
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #141313;
             color: #E4EDEF;
             overflow-x: hidden;
-            cursor: none;
+            /* Removi a linha cursor: none; para restaurar o cursor padrão */
         }
         
         .wave-container {
@@ -264,56 +263,21 @@
             height: auto;
         }
         
-        /* Custom Cursor Styles */
-        .cursor {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background-color: rgba(137, 204, 212, 0.7);
-            pointer-events: none;
-            mix-blend-mode: difference;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-        }
+        /* Removi todas as classes relacionadas ao cursor personalizado */
         
-        .cursor-trail {
-            position: fixed;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(137, 204, 212, 0.6) 0%, rgba(137, 204, 212, 0) 70%);
-            pointer-events: none;
-            z-index: 9998;
-            transform: translate(-50%, -50%);
-            animation: trailFade 0.6s forwards;
-        }
-        
-        @keyframes trailFade {
-            0% {
-                opacity: 0.8;
-                transform: translate(-50%, -50%) scale(0.8);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(1.5);
-            }
-        }
-        
-        /* Hide custom cursor on mobile */
+        /* Hide custom ripple on mobile */
         @media (hover: none) {
             body {
                 cursor: default;
             }
-            .cursor, .cursor-trail {
+            .water-ripple {
                 display: none;
             }
         }
     </style>
 </head>
 <body class="relative">
-    <!-- Custom Cursor Elements -->
-    <div class="cursor" id="cursor"></div>
+    <!-- Removi o elemento do cursor personalizado -->
     
     <!-- Particle Background -->
     <div id="particles"></div>
@@ -472,12 +436,14 @@
                         </div>
                     </div>
                     
-                    
-    
-    <!-- WhatsApp Button -->
-    <a href="https://api.whatsapp.com/send?phone=5531991976508" class="fixed bottom-8 right-8 bg-[#25D366] text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl shadow-lg whatsapp-btn z-50">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+                    <!-- WhatsApp Button -->
+                    <a href="https://api.whatsapp.com/send?phone=5531991976508" class="fixed bottom-8 right-8 bg-[#25D366] text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl shadow-lg whatsapp-btn z-50">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
     
     <!-- Footer -->
     <footer class="bg-black bg-opacity-70 py-8">
@@ -487,7 +453,9 @@
                 <div class="text-[#E4EDEF] mb-4 text-center">
                     © 2025 Mares Motion – All rights reserved.
                 </div>
-
+            </div>
+        </div>
+    </footer>
     
     <script>
         // Create particles
@@ -547,68 +515,6 @@
             observer.observe(el);
         });
         
-        // Custom Cursor Logic
-        if (window.matchMedia("(hover: hover)").matches) {
-            const cursor = document.getElementById('cursor');
-            let mouseX = 0;
-            let mouseY = 0;
-            let lastX = 0;
-            let lastY = 0;
-            let trailInterval;
-            let isMoving = false;
-            
-            // Track mouse position
-            document.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-                
-                if (!isMoving) {
-                    isMoving = true;
-                    startTrail();
-                }
-                
-                lastX = e.clientX;
-                lastY = e.clientY;
-            });
-            
-            // Update cursor position
-            function updateCursor() {
-                cursor.style.left = `${mouseX}px`;
-                cursor.style.top = `${mouseY}px`;
-                requestAnimationFrame(updateCursor);
-            }
-            
-            // Create water trail effect
-            function startTrail() {
-                clearInterval(trailInterval);
-                
-                trailInterval = setInterval(() => {
-                    if (Math.abs(mouseX - lastX) < 2 && Math.abs(mouseY - lastY) < 2) {
-                        clearInterval(trailInterval);
-                        isMoving = false;
-                        return;
-                    }
-                    
-                    const trail = document.createElement('div');
-                    trail.classList.add('cursor-trail');
-                    trail.style.left = `${mouseX}px`;
-                    trail.style.top = `${mouseY}px`;
-                    document.body.appendChild(trail);
-                    
-                    // Remove trail element after animation completes
-                    setTimeout(() => {
-                        trail.remove();
-                    }, 600);
-                    
-                    lastX = mouseX;
-                    lastY = mouseY;
-                }, 30);
-            }
-            
-            // Initialize cursor
-            updateCursor();
-        }
-        
         // Initialize on DOM load
         document.addEventListener('DOMContentLoaded', () => {
             createParticles();
@@ -619,33 +525,32 @@
             const firstScriptTag = document.getElementsByTagName('script')[0];
             firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
         });
+
+        // Ripple effect script
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.matchMedia("(hover: hover)").matches) {
+                let mouseX = 0;
+                let mouseY = 0;
+
+                document.addEventListener('mousemove', (e) => {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                    createRipple();
+                });
+
+                function createRipple() {
+                    const ripple = document.createElement('div');
+                    ripple.classList.add('water-ripple');
+                    ripple.style.left = `${mouseX}px`;
+                    ripple.style.top = `${mouseY}px`;
+                    document.body.appendChild(ripple);
+
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 1200);
+                }
+            }
+        });
     </script>
-
-            <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    if (window.matchMedia("(hover: hover)").matches) {
-      let mouseX = 0;
-      let mouseY = 0;
-
-      document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        createRipple();
-      });
-
-      function createRipple() {
-        const ripple = document.createElement('div');
-        ripple.classList.add('water-ripple');
-        ripple.style.left = `${mouseX}px`;
-        ripple.style.top = `${mouseY}px`;
-        document.body.appendChild(ripple);
-
-        setTimeout(() => {
-          ripple.remove();
-        }, 1200);
-      }
-    }
-  });
-</script>
 </body>
 </html>
