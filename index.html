@@ -7,12 +7,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <style>
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #141313;
             color: #E4EDEF;
             overflow-x: hidden;
+            cursor: none;
         }
         
         .wave-container {
@@ -120,23 +122,6 @@
             border: none;
         }
         
-        .gallery-item {
-            transition: transform 0.3s ease;
-            overflow: hidden;
-        }
-        
-        .gallery-item:hover {
-            transform: scale(1.03);
-        }
-        
-        .gallery-item img {
-            transition: transform 0.5s ease;
-        }
-        
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
-        
         .contact-input {
             background-color: rgba(228, 237, 239, 0.1);
             border-bottom: 2px solid #4395A7;
@@ -199,9 +184,105 @@
             border-radius: 4px;
             z-index: 10;
         }
+        
+        .logo-img {
+            max-width: 400px;
+            width: 70%;
+            height: auto;
+            margin-bottom: 1.5rem;
+        }
+        
+        .full-width-image {
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .lottie-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            padding: 60px 0;
+            margin: 40px 0;
+        }
+        
+        .lottie-player {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .mares-logo {
+            max-width: 50px;
+            height: auto;
+        }
+        
+        .mares-logo2 {
+            max-width: 120px;
+            height: auto;
+        }
+        
+        .footer-logo {
+            max-width: 150px;
+            height: auto;
+        }
+        
+        /* Custom Cursor Styles */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: rgba(137, 204, 212, 0.7);
+            pointer-events: none;
+            mix-blend-mode: difference;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+        }
+        
+        .cursor-trail {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(137, 204, 212, 0.6) 0%, rgba(137, 204, 212, 0) 70%);
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            animation: trailFade 0.6s forwards;
+        }
+        
+        @keyframes trailFade {
+            0% {
+                opacity: 0.8;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(1.5);
+            }
+        }
+        
+        /* Hide custom cursor on mobile */
+        @media (hover: none) {
+            body {
+                cursor: default;
+            }
+            .cursor, .cursor-trail {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body class="relative">
+    <!-- Custom Cursor Elements -->
+    <div class="cursor" id="cursor"></div>
+    
     <!-- Particle Background -->
     <div id="particles"></div>
     
@@ -209,15 +290,13 @@
     <header class="fixed top-0 left-0 w-full bg-black bg-opacity-90 z-50 shadow-md">
         <div class="container mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
-                <div class="text-2xl font-bold">
-                    <span class="text-[#89CCD4]">Mares</span>
-                    <span class="text-[#E4EDEF]">Motion</span>
+                <div>
+                    <img src="https://i.imgur.com/lDI5kxW.png" alt="Mares Motion Logo" class="mares-logo">
                 </div>
                 <nav class="hidden md:block">
                     <ul class="flex space-x-8">
                         <li><a href="#about" class="nav-link text-[#E4EDEF] hover:text-[#89CCD4]">About</a></li>
                         <li><a href="#portfolio" class="nav-link text-[#E4EDEF] hover:text-[#89CCD4]">Portfolio</a></li>
-                        <li><a href="#design" class="nav-link text-[#E4EDEF] hover:text-[#89CCD4]">Design</a></li>
                         <li><a href="#contact" class="nav-link text-[#E4EDEF] hover:text-[#89CCD4]">Contact</a></li>
                     </ul>
                 </nav>
@@ -237,12 +316,9 @@
     <main class="container mx-auto px-6 pb-20">
         <!-- Hero Section -->
         <section class="min-h-screen flex flex-col justify-center items-center text-center py-20 fade-in">
-            <h1 class="text-5xl md:text-7xl font-bold mb-6">
-                <span class="text-[#89CCD4]">Dive into</span>
-                <span class="text-[#E4EDEF]">Motion</span>
-            </h1>
+            <img src="https://i.imgur.com/lDI5kxW.png" alt="Mares Motion Logo" class="logo-img">
             <p class="text-xl md:text-2xl text-[#E4EDEF] max-w-2xl mx-auto mb-10">
-                Creating fluid, captivating motion designs inspired by the depth and beauty of the ocean.
+                Motion design that flows like the sea — creating animations that blend technique, vision, and commitment in every frame.
             </p>
             <a href="#portfolio" class="px-8 py-3 bg-[#4395A7] hover:bg-[#89CCD4] text-[#E4EDEF] rounded-full transition-all duration-300 transform hover:scale-105">
                 Explore Work
@@ -251,10 +327,9 @@
         
         <!-- Video Portfolio Section -->
         <section id="portfolio" class="py-20 fade-in">
-            <h2 class="text-3xl md:text-4xl font-bold mb-16 text-center">
-                <span class="text-[#89CCD4]">Video</span>
-                <span class="text-[#E4EDEF]">Portfolio</span>
-            </h2>
+            <div class="flex justify-center mb-16">
+                <img src="https://i.imgur.com/lb1kQp1.png" alt="Mares Motion Logo" class="logo-img max-w-xs">
+            </div>
             
             <div class="space-y-20">
                 <!-- Video 1 -->
@@ -311,54 +386,13 @@
             </div>
         </section>
         
-        <!-- Design Gallery Section -->
-        <section id="design" class="py-20 fade-in">
-            <h2 class="text-3xl md:text-4xl font-bold mb-16 text-center">
-                <span class="text-[#89CCD4]">Design</span>
-                <span class="text-[#E4EDEF]">Gallery</span>
-            </h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Gallery Item 1 -->
-                <div class="gallery-item rounded-xl overflow-hidden">
-                    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/4f1082104945461.5f6df2810454e.jpg" alt="Design Work 1" class="w-full h-full object-cover">
-                </div>
-                
-                <!-- Gallery Item 2 -->
-                <div class="gallery-item rounded-xl overflow-hidden">
-                    <img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/4ef6db104945461.5f6df28104c71.jpg" alt="Design Work 2" class="w-full h-full object-cover">
-                </div>
-                
-                <!-- Gallery Item 3 -->
-                <div class="gallery-item rounded-xl overflow-hidden">
-                    <img src="https://static.wixstatic.com/media/673f8b_69e73171e5df4ff0a496ec9360e9599d~mv2.jpg/v1/fill/w_1960,h_1306,q_90,enc_avif,quality_auto/673f8b_69e73171e5df4ff0a496ec9360e9599d~mv2.jpg" alt="Design Work 3" class="w-full h-full object-cover">
-                </div>
-                
-                <!-- Gallery Item 4 -->
-                <div class="gallery-item rounded-xl overflow-hidden">
-                    <img src="https://static.wixstatic.com/media/673f8b_5c3ad01f76a048ae9e61159427f6525d~mv2.jpg/v1/fill/w_750,h_750,q_90,enc_avif,quality_auto/673f8b_5c3ad01f76a048ae9e61159427f6525d~mv2.jpg" alt="Design Work 4" class="w-full h-full object-cover">
-                </div>
-                
-                <!-- Gallery Item 5 -->
-                <div class="gallery-item rounded-xl overflow-hidden">
-                    <img src="https://scontent-gig4-2.cdninstagram.com/v/t51.29350-15/120065777_657139355187590_7243292012411719064_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6IkZFRUQuaW1hZ2VfdXJsZ2VuLjEwODB4MTA4MC.szZHIuZjI5MzUwLmRlZmF1bHRfaW1hZ2UifQ&_nc_ht=scontent-gig4-2.cdninstagram.com&_nc_cat=102&_nc_oc=Q6cZ2QEj-u0_La1qCmmbFBH2j3Dbcw5RUUerWu1a0BohPIQGBqz2ilTWpwWH1ikyKC-3OK3Yfbgip_k0iXbRjNnrbwtM&_nc_ohc=5X2qsEGMQsAQ7kNvwECOPM3&_nc_gid=BT_gTFo6_i0grfEek10W0A&edm=AP4sbd4BAAAA&ccb=7-5&ig_cache_key=MjQwNTYyMzA4NDk4NTE5NDAyMg%3D%3D.3-ccb7-5&oh=00_AfE5vDkMfgho0F5KJ3GxYWlUcBPsrDbPTI5SVwSERuzNwQ&oe=68170AF4&_nc_sid=7a9f4b" alt="Design Work 5" class="w-full h-full object-cover">
-                </div>
-                
-                <!-- Gallery Item 6 -->
-                <div class="gallery-item rounded-xl overflow-hidden">
-                    <img src="https://scontent-gig4-2.cdninstagram.com/v/t51.29350-15/120077397_151054780031089_2405494876401681638_n.jpg?stp=dst-jpg_e35_tt6&efg=eyJ2ZW5jb2RlX3RhZyI6IkZFRUQuaW1hZ2VfdXJsZ2VuLjEwODB4MTA4MC5zZHIuZjI5MzUwLmRlZmF1bHRfaW1hZ2UifQ&_nc_ht=scontent-gig4-2.cdninstagram.com&_nc_cat=101&_nc_oc=Q6cZ2QEj-u0_La1qCmmbFBH2j3Dbcw5RUUerWu1a0BohPIQGBqz2ilTWpwWH1ikyKC-3OK3Yfbgip_k0iXbRjNnrbwtM&_nc_ohc=fTyW6GE4j9YQ7kNvwFerUUC&_nc_gid=BT_gTFo6_i0grfEek10W0A&edm=AP4sbd4BAAAA&ccb=7-5&ig_cache_key=MjQwNTYyMTU3MDk2NzMxNTkxMQ%3D%3D.3-ccb7-5&oh=00_AfHgnUe8z5FtdmtdfSro8ta7SbvsivM50cSPbMl9BkJt9g&oe=68170012&_nc_sid=7a9f4b" alt="Design Work 6" class="w-full h-full object-cover">
-                </div>
-            </div>
-        </section>
-        
         <!-- About Section -->
         <section id="about" class="py-20 fade-in">
             <div class="flex flex-col lg:flex-row items-center gap-12">
                 <div class="lg:w-1/2">
-                    <h2 class="text-3xl md:text-4xl font-bold mb-8">
-                        <span class="text-[#89CCD4]">About</span>
-                        <span class="text-[#E4EDEF]">Mares Motion</span>
-                    </h2>
+                    <div class="mb-8">
+                        <img src="https://i.imgur.com/lb1kQp1.png" alt="Mares Motion Logo" class="mares-logo2">
+                    </div>
                     <p class="text-lg mb-6">
                         Mares Motion is a creative studio specializing in motion design and visual storytelling. Inspired by the fluidity and depth of the ocean, we create captivating animations that bring ideas to life.
                     </p>
@@ -379,10 +413,8 @@
         
         <!-- Contact Section -->
         <section id="contact" class="py-20 fade-in">
-            <h2 class="text-3xl md:text-4xl font-bold mb-16 text-center">
-                <span class="text-[#89CCD4]">Get in</span>
-                <span class="text-[#E4EDEF]">Touch</span>
-            </h2>
+            <div class="flex justify-center mb-16">
+            </div>
             
             <div class="flex flex-col lg:flex-row gap-12">
                 <div class="lg:w-1/2">
@@ -408,42 +440,7 @@
                         </div>
                     </div>
                     
-                    <h3 class="text-2xl font-bold mt-12 mb-6 text-[#E4EDEF]">Follow Us</h3>
-                    <div class="flex space-x-6">
-                        <a href="#" class="text-2xl text-[#E4EDEF] hover:text-[#89CCD4] transition-colors">
-                            <i class="fab fa-vimeo-v"></i>
-                        </a>
-                        <a href="#" class="text-2xl text-[#E4EDEF] hover:text-[#89CCD4] transition-colors">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="text-2xl text-[#E4EDEF] hover:text-[#89CCD4] transition-colors">
-                            <i class="fab fa-behance"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="lg:w-1/2">
-                    <form class="space-y-6">
-                        <div>
-                            <label for="name" class="block text-[#E4EDEF] mb-2">Name</label>
-                            <input type="text" id="name" class="w-full px-4 py-3 contact-input rounded-t-lg focus:outline-none">
-                        </div>
-                        <div>
-                            <label for="email" class="block text-[#E4EDEF] mb-2">Email</label>
-                            <input type="email" id="email" class="w-full px-4 py-3 contact-input rounded-t-lg focus:outline-none">
-                        </div>
-                        <div>
-                            <label for="message" class="block text-[#E4EDEF] mb-2">Message</label>
-                            <textarea id="message" rows="5" class="w-full px-4 py-3 contact-input rounded-t-lg focus:outline-none"></textarea>
-                        </div>
-                        <button type="submit" class="submit-btn px-8 py-3 text-[#E4EDEF] rounded-full font-semibold">
-                            Send Message
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </section>
-    </main>
+                    
     
     <!-- WhatsApp Button -->
     <a href="https://api.whatsapp.com/send?phone=5531991976508" class="fixed bottom-8 right-8 bg-[#25D366] text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl shadow-lg whatsapp-btn z-50">
@@ -453,24 +450,12 @@
     <!-- Footer -->
     <footer class="bg-black bg-opacity-70 py-8">
         <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="text-[#E4EDEF] mb-4 md:mb-0">
+            <div class="flex flex-col items-center">
+                <img src="https://i.imgur.com/lb1kQp1.png" alt="Mares Motion Logo" class="footer-logo mb-6">
+                <div class="text-[#E4EDEF] mb-4 text-center">
                     © 2025 Mares Motion – All rights reserved.
                 </div>
-                <div class="flex space-x-6">
-                    <a href="#" class="text-[#E4EDEF] hover:text-[#89CCD4] transition-colors">
-                        <i class="fab fa-vimeo-v"></i>
-                    </a>
-                    <a href="#" class="text-[#E4EDEF] hover:text-[#89CCD4] transition-colors">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="#" class="text-[#E4EDEF] hover:text-[#89CCD4] transition-colors">
-                        <i class="fab fa-behance"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </footer>
+
     
     <script>
         // Create particles
@@ -529,6 +514,68 @@
             el.style.opacity = 0;
             observer.observe(el);
         });
+        
+        // Custom Cursor Logic
+        if (window.matchMedia("(hover: hover)").matches) {
+            const cursor = document.getElementById('cursor');
+            let mouseX = 0;
+            let mouseY = 0;
+            let lastX = 0;
+            let lastY = 0;
+            let trailInterval;
+            let isMoving = false;
+            
+            // Track mouse position
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                
+                if (!isMoving) {
+                    isMoving = true;
+                    startTrail();
+                }
+                
+                lastX = e.clientX;
+                lastY = e.clientY;
+            });
+            
+            // Update cursor position
+            function updateCursor() {
+                cursor.style.left = `${mouseX}px`;
+                cursor.style.top = `${mouseY}px`;
+                requestAnimationFrame(updateCursor);
+            }
+            
+            // Create water trail effect
+            function startTrail() {
+                clearInterval(trailInterval);
+                
+                trailInterval = setInterval(() => {
+                    if (Math.abs(mouseX - lastX) < 2 && Math.abs(mouseY - lastY) < 2) {
+                        clearInterval(trailInterval);
+                        isMoving = false;
+                        return;
+                    }
+                    
+                    const trail = document.createElement('div');
+                    trail.classList.add('cursor-trail');
+                    trail.style.left = `${mouseX}px`;
+                    trail.style.top = `${mouseY}px`;
+                    document.body.appendChild(trail);
+                    
+                    // Remove trail element after animation completes
+                    setTimeout(() => {
+                        trail.remove();
+                    }, 600);
+                    
+                    lastX = mouseX;
+                    lastY = mouseY;
+                }, 30);
+            }
+            
+            // Initialize cursor
+            updateCursor();
+        }
         
         // Initialize on DOM load
         document.addEventListener('DOMContentLoaded', () => {
