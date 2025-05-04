@@ -7,8 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-    <style>
+        <style>
         /* Ripple circle effect */
         .water-ripple {
             position: fixed;
@@ -70,41 +69,7 @@
         .wave-top {
             animation: wave 12s linear infinite;
         }
-        
-        @keyframes wave {
-            0% {
-                transform: translateX(0) translateZ(0) scaleY(1);
-            }
-            50% {
-                transform: translateX(-25%) translateZ(0) scaleY(0.9);
-            }
-            100% {
-                transform: translateX(-50%) translateZ(0) scaleY(1);
-            }
-        }
-        
-        .particle {
-            position: absolute;
-            background-color: #89CCD4;
-            border-radius: 50%;
-            opacity: 0.3;
-            animation: float linear infinite;
-        }
-        
-        @keyframes float {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 0.3;
-            }
-            50% {
-                opacity: 0.6;
-            }
-            100% {
-                transform: translateY(-100vh) rotate(360deg);
-                opacity: 0.3;
-            }
-        }
-        
+                  
         .nav-link {
             position: relative;
         }
@@ -203,19 +168,7 @@
             to { opacity: 1; }
         }
         
-        .video-title {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            color: white;
-            font-size: 1.2rem;
-            font-weight: 500;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 5px 10px;
-            border-radius: 4px;
-            z-index: 10;
-        }
-        
+                
         .logo-img {
             max-width: 400px;
             width: 70%;
@@ -234,19 +187,7 @@
             margin-bottom: 40px;
         }
         
-        .lottie-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: white;
-            padding: 60px 0;
-            margin: 40px 0;
-        }
         
-        .lottie-player {
-            width: 300px;
-            height: 300px;
-        }
         
         .mares-logo {
             max-width: 50px;
@@ -286,13 +227,7 @@
             }
         }
         
-        #particles {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-        
+              
         .video-container-bg {
             position: absolute;
             top: 0;
@@ -352,9 +287,7 @@
 </head>
 <body class="relative">
     <!-- Removi o elemento do cursor personalizado -->
-    
-    <!-- Particle Background -->
-    <div id="particles"></div>
+   
     
     <!-- Header -->
     <header class="fixed top-0 left-0 w-full bg-black bg-opacity-90 z-50 shadow-md">
@@ -381,15 +314,20 @@
     <section class="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
         <!-- Video Background -->
         <div class="video-container-bg">
-            <iframe src="https://player.vimeo.com/video/1080537001?background=1&autoplay=1&loop=1&muted=1&title=0&byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+        <iframe 
+            loading="eager"
+            src="https://player.vimeo.com/video/1080537001?background=1&autoplay=1&loop=1&muted=1&title=0&byline=0&portrait=0&background=1"
+            frameborder="0"
+            allow="autoplay; fullscreen"
+            allowfullscreen
+            webkitallowfullscreen
+            mozallowfullscreen>
+        </iframe>
         </div>
         
         <!-- Dark Overlay -->
         <div class="overlay"></div>
-        
-        <!-- Particle Animation -->
-        <div id="particles"></div>
-        
+                    
        
         
         <!-- Hero Content -->
@@ -423,58 +361,70 @@
                 <!-- Video 1 -->
                 <div class="video-container">
                     <div class="video-wrapper">
-                        <iframe src="https://player.vimeo.com/video/672767070?autoplay=1&loop=1&muted=1&controls=1&title=0&byline=0&portrait=0&background=1" 
-                                frameborder="0" 
-                                allow="autoplay; fullscreen" 
-                                allowfullscreen
-                                webkitallowfullscreen
-                                mozallowfullscreen></iframe>
-                        <div class="video-title">Motion Design Reel 2023</div>
+                        <iframe                        
+                        src="https://player.vimeo.com/video/672767070?autoplay=1&loop=1&muted=1&controls=1&title=0&byline=0&portrait=0&background=1" 
+                        frameborder="0" 
+                        allow="autoplay; fullscreen" 
+                        allowfullscreen
+                        webkitallowfullscreen
+                        mozallowfullscreen>
+                        </iframe>
+
                     </div>
                 </div>
                 
                 <!-- Video 2 -->
                 <div class="video-container">
                     <div class="video-wrapper">
-                        <iframe src="https://player.vimeo.com/video/767413928?autoplay=1&loop=1&muted=1&controls=1&title=0&byline=0&portrait=0&background=1" 
-                                frameborder="0" 
-                                allow="autoplay; fullscreen" 
-                                allowfullscreen
-                                webkitallowfullscreen
-                                mozallowfullscreen></iframe>
-                        <div class="video-title">Brand Animation</div>
+                        <iframe 
+                          loading="lazy"
+                          src="https://player.vimeo.com/video/767413928?autoplay=1&loop=1&muted=1&controls=1&title=0&byline=0&portrait=0&background=1" 
+                          frameborder="0" 
+                          allow="autoplay; fullscreen" 
+                          allowfullscreen
+                          webkitallowfullscreen
+                          mozallowfullscreen>
+                      </iframe>
+
                     </div>
                 </div>
                 
                 <!-- Video 3 -->
                 <div class="video-container">
                     <div class="video-wrapper">
-                        <iframe src="https://player.vimeo.com/video/767417042?autoplay=1&loop=1&muted=1&controls=1&title=0&byline=0&portrait=0&background=1" 
-                                frameborder="0" 
-                                allow="autoplay; fullscreen" 
-                                allowfullscreen
-                                webkitallowfullscreen
-                                mozallowfullscreen></iframe>
-                        <div class="video-title">3D Product Showcase</div>
+                        <iframe    
+                        loading="lazy"
+                        src="https://player.vimeo.com/video/767417042?autoplay=1&loop=1&muted=1&controls=1&title=0&byline=0&portrait=0&background=1"
+                        frameborder="0"
+                        allow="autoplay; fullscreen"
+                        allowfullscreen
+                        webkitallowfullscreen
+                        mozallowfullscreen>
+                      </iframe>
+
                     </div>
                 </div>
                 
                 <!-- Video 4 -->
                 <div class="video-container">
                     <div class="video-wrapper">
-                        <iframe src="https://player.vimeo.com/video/767414516?autoplay=1&loop=1&muted=1&controls=1&title=0&byline=0&portrait=0&background=1" 
-                                frameborder="0" 
-                                allow="autoplay; fullscreen" 
-                                allowfullscreen
-                                webkitallowfullscreen
-                                mozallowfullscreen></iframe>
-                        <div class="video-title">Typography Animation</div>
+                        <iframe 
+                          loading="lazy"
+                          src="https://player.vimeo.com/video/767414516?autoplay=1&loop=1&muted=1&controls=1&title=0&byline=0&portrait=0&background=1" 
+                          frameborder="0" 
+                          allow="autoplay; fullscreen" 
+                          allowfullscreen
+                          webkitallowfullscreen
+                          mozallowfullscreen>
+                        </iframe>
+                      
                     </div>
                 </div>
             </div>
-        </section>
-        
+        </section>    
+
         <!-- About Section -->
+      
         <section id="about" class="py-20 fade-in">
             <div class="flex flex-col lg:flex-row items-center gap-12">
                 <div class="lg:w-1/2">
@@ -550,33 +500,7 @@
     </footer>
     
     <script>
-        // Create particles
-        function createParticles() {
-            const container = document.getElementById('particles');
-            const particleCount = 30;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                
-                // Random size between 2px and 6px
-                const size = Math.random() * 4 + 2;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                
-                // Random position
-                const posX = Math.random() * window.innerWidth;
-                const posY = Math.random() * window.innerHeight;
-                particle.style.left = `${posX}px`;
-                particle.style.top = `${posY}px`;
-                
-                // Random animation duration between 10s and 20s
-                const duration = Math.random() * 10 + 10;
-                particle.style.animationDuration = `${duration}s`;
-                
-                container.appendChild(particle);
-            }
-        }
+        
         
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -609,9 +533,7 @@
         
         // Initialize on DOM load
         document.addEventListener('DOMContentLoaded', () => {
-            createParticles();
-            
-            // Load Vimeo API script
+                      // Load Vimeo API script
             const tag = document.createElement('script');
             tag.src = "https://player.vimeo.com/api/player.js";
             const firstScriptTag = document.getElementsByTagName('script')[0];
@@ -644,58 +566,6 @@
             }
         });
 
-        // Particle animation script from second code
-        document.addEventListener('DOMContentLoaded', function() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 50;
-            
-            for (let i = 0; i < particleCount; i++) {
-                createParticle();
-            }
-            
-            function createParticle() {
-                const particle = document.createElement('div');
-                particle.className = 'absolute rounded-full bg-white opacity-20';
-                
-                // Random size between 1px and 3px
-                const size = Math.random() * 2 + 1;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                
-                // Random position
-                particle.style.left = `${Math.random() * 100}%`;
-                particle.style.top = `${Math.random() * 100}%`;
-                
-                // Random animation
-                const duration = Math.random() * 20 + 10;
-                const delay = Math.random() * 5;
-                particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite`;
-                
-                particlesContainer.appendChild(particle);
-                
-                // Add animation keyframes dynamically
-                const keyframes = `
-                    @keyframes float {
-                        0% {
-                            transform: translate(0, 0) rotate(0deg);
-                            opacity: ${Math.random() * 0.2 + 0.1};
-                        }
-                        50% {
-                            transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px) rotate(${Math.random() * 360}deg);
-                            opacity: ${Math.random() * 0.3 + 0.2};
-                        }
-                        100% {
-                            transform: translate(0, 0) rotate(0deg);
-                            opacity: ${Math.random() * 0.2 + 0.1};
-                        }
-                    }
-                `;
-                
-                const style = document.createElement('style');
-                style.innerHTML = keyframes;
-                document.head.appendChild(style);
-            }
-        });
     </script>
 </body>
 </html>
