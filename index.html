@@ -396,6 +396,7 @@
                     <div class="video-container">
                         <div class="video-wrapper">
                             <iframe
+                                    id="video-1082028000"
                                     src="https://player.vimeo.com/video/1082028000?autoplay=1&loop=0&muted=0&controls=1&title=0&byline=0&portrait=0&autopause=0"
                                     frameborder="0"
                                     allow="autoplay; fullscreen"
@@ -409,14 +410,11 @@
 
                     <div class="video-container">
                         <div class="video-wrapper">
-                            <iframe
-                                    src="https://player.vimeo.com/video/672767070?autoplay=0&loop=0&muted=0&controls=1&title=0&byline=0&portrait=0&autopause=0"
-                                    frameborder="0"
-                                    allow="autoplay; fullscreen"
-                                    allowfullscreen
-                                    webkitallowfullscreen
-                                    mozallowfullscreen>
-                            </iframe>
+                            <iframe src="https://player.vimeo.com/video/1082028000?background=1&autoplay=1&loop=1"
+                class="absolute top-0 left-0 w-full h-full z-0" 
+                frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen>
+                    </iframe>
+
                         </div>
                         <div class="video-overlay-text">Portifolio Antigo</div>
                     </div>
@@ -612,6 +610,41 @@
                 tag.src = "https://player.vimeo.com/api/player.js";
                 const firstScriptTag = document.getElementsByTagName('script')[0];
                 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+                // Function to set the volume of the video
+                function setVideoVolume(videoId, volume) {
+                    const iframe = document.getElementById(videoId);
+                    if (iframe) {
+                        // Check if the iframe has a contentWindow property.
+                        if (iframe.contentWindow) {
+                            // Use the Vimeo API's postMessage to communicate with the player.
+                            const message = {
+                                method: 'setVolume',
+                                value: volume
+                            };
+                            // It's crucial to send the message to the correct origin.
+                            iframe.contentWindow.postMessage(message, 'https://player.vimeo.com');
+
+                            // Listen for the 'ready' event to ensure the player is ready to receive commands.
+                            const readyListener = (event) => {
+                                if (event.origin === 'https://player.vimeo.com' && event.data === 'ready') {
+                                    // Send the setVolume message *after* the player is ready.
+                                    iframe.contentWindow.postMessage(message, 'https://player.vimeo.com');
+
+                                    // Remove the event listener after it's been used.
+                                    window.removeEventListener('message', readyListener);
+                                }
+                            };
+                            window.addEventListener('message', readyListener);
+                        } else {
+                            console.error('iframe.contentWindow is not defined. Cannot set volume.');
+                        }
+                    } else {
+                        console.warn(`Iframe with ID "${videoId}" not found.`);
+                    }
+                }
+                // Set volume for the first video, after the Vimeo API is loaded and ready
+                setVideoVolume('video-1082028000', 0.2);
             });
 
             // Ripple effect script
@@ -643,5 +676,19 @@
         </script>
         <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
                 data-cf-beacon='{"token": "d4347b66ddfe4a92bd9da109d7256319"}'></script>
+      <script src="https://player.vimeo.com/api/player.js"></script>
+<script>
+    const iframe = document.querySelector('iframe[src*="1082028000"]');
+    const player = new Vimeo.Player(iframe);
+
+    player.setVolume(0.2) // 0 (mudo) até 1 (máximo)
+        .then(function(volume) {
+            console.log('Volume definido para:', volume);
+        })
+        .catch(function(error) {
+            console.error('Erro ao definir volume:', error);
+        });
+</script>
+
     </body>
 </html>
