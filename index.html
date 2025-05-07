@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mares Motion | Motion Design Portfolio</title>
-  <link rel="icon" type="image/png" href="https://i.imgur.com/vMbLYnJ.png">
+    <link rel="icon" type="image/png" href="https://i.imgur.com/vMbLYnJ.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-        <style>
+    <style>
         /* Ripple circle effect */
         .water-ripple {
             position: fixed;
@@ -45,16 +45,15 @@
             background-color: #141313;
             color: #E4EDEF;
             overflow-x: hidden;
-            /* Removi a linha cursor: none; para restaurar o cursor padrão */
         }
-        
+
         .wave-container {
             position: relative;
             width: 100%;
             overflow: hidden;
             height: 100px;
         }
-        
+
         .wave {
             position: absolute;
             bottom: 0;
@@ -66,15 +65,15 @@
             transform-origin: center bottom;
             background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%234395A7" opacity=".25"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" fill="%234395A7" opacity=".5"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%2389CCD4"/></svg>');
         }
-        
+
         .wave-top {
             animation: wave 12s linear infinite;
         }
-                  
+
         .nav-link {
             position: relative;
         }
-        
+
         .nav-link::after {
             content: '';
             position: absolute;
@@ -85,31 +84,32 @@
             background-color: #89CCD4;
             transition: width 0.3s ease;
         }
-        
+
         .nav-link:hover::after {
             width: 100%;
         }
-        
+
         .video-container {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
         }
-        
+
         .video-container:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(137, 204, 212, 0.2);
         }
-        
+
         .video-wrapper {
             position: relative;
             padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
             height: 0;
             background: #000;
         }
-        
+
         .video-wrapper iframe {
             position: absolute;
             top: 0;
@@ -118,32 +118,32 @@
             height: 100%;
             border: none;
         }
-        
+
         .contact-input {
             background-color: rgba(228, 237, 239, 0.1);
             border-bottom: 2px solid #4395A7;
             transition: all 0.3s ease;
         }
-        
+
         .contact-input:focus {
             background-color: rgba(228, 237, 239, 0.2);
             border-bottom-color: #89CCD4;
         }
-        
+
         .submit-btn {
             background: linear-gradient(135deg, #4395A7 0%, #89CCD4 100%);
             transition: all 0.3s ease;
         }
-        
+
         .submit-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(137, 204, 212, 0.4);
         }
-        
+
         .whatsapp-btn {
             animation: pulse 2s infinite;
         }
-        
+
         @keyframes pulse {
             0% {
                 box-shadow: 0 0 0 0 rgba(67, 149, 167, 0.7);
@@ -155,28 +155,32 @@
                 box-shadow: 0 0 0 0 rgba(67, 149, 167, 0);
             }
         }
-        
+
         section {
             scroll-margin-top: 100px;
         }
-        
+
         .fade-in {
             animation: fadeIn 1s ease-in;
         }
-        
+
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
-        
-                
+
         .logo-img {
             max-width: 400px;
             width: 70%;
             height: auto;
             margin-bottom: 1.5rem;
         }
-        
+
         .full-width-image {
             width: 100vw;
             position: relative;
@@ -187,24 +191,22 @@
             margin-top: 40px;
             margin-bottom: 40px;
         }
-        
-        
-        
+
         .mares-logo {
             max-width: 50px;
             height: auto;
         }
-        
+
         .mares-logo2 {
             max-width: 120px;
             height: auto;
         }
-        
+
         .footer-logo {
             max-width: 150px;
             height: auto;
         }
-        
+
         /* Custom CSS for elements Tailwind can't handle */
         .wave-bg {
             position: absolute;
@@ -218,17 +220,17 @@
             z-index: 10;
             animation: wave 15s linear infinite;
         }
-        
+
         @keyframes wave {
             0% {
                 background-position-x: 0;
             }
+
             100% {
                 background-position-x: 1000px;
             }
         }
-        
-              
+
         .video-container-bg {
             position: absolute;
             top: 0;
@@ -238,18 +240,18 @@
             overflow: hidden;
             z-index: 0;
         }
-        
+
         .video-container-bg iframe {
             width: 100vw;
-            height: 56.25vw; /* Given a 16:9 aspect ratio, 9/16*100 = 56.25 */
+            height: 56.25vw;
             min-height: 100vh;
-            min-width: 177.77vh; /* Given a 16:9 aspect ratio, 16/9*100 = 177.77 */
+            min-width: 177.77vh;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
         }
-        
+
         .overlay {
             position: absolute;
             top: 0;
@@ -259,323 +261,387 @@
             background-color: rgba(0, 0, 0, 0.5);
             z-index: 2;
         }
-        
+
         .hero-content {
             position: relative;
             z-index: 20;
         }
-        
+
         .logo {
             filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
             transition: all 0.3s ease;
         }
-        
+
         .logo:hover {
             filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.4));
             transform: scale(1.02);
         }
-        
+
         /* Hide custom ripple on mobile */
         @media (hover: none) {
             body {
                 cursor: default;
             }
+
             .water-ripple {
                 display: none;
             }
         }
+
+        .video-overlay-text {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            z-index: 10;
+            padding: 0.5rem;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 4px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .grid-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
     </style>
     <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "resm485i3e");
-</script>
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () {
+                (c[a].q = c[a].q || []).push(arguments)
+            };
+            t = l.createElement(r);
+            t.async = 1;
+            t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0];
+            y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "resm485i3e");
+    </script>
 </head>
 <body class="relative">
     <body class="relative">
-  <div id="home"></div>
+        <div id="home"></div>
 
-   
-    
-    <!-- Header -->
-    <header class="fixed top-0 left-0 w-full bg-black bg-opacity-90 z-50 shadow-md">
-        <div class="container mx-auto px-6 py-4">
-            <div class="flex justify-between items-center">
-                <div>
-                    <img src="https://i.imgur.com/lDI5kxW.png" alt="Mares Motion Logo" class="mares-logo">
-                </div>
-                <nav class="hidden md:block">
-                    <ul class="flex space-x-8">
-                      <li><a href="#home" class="nav-link text-[#E4EDEF] hover:text-[#89CCD4]">Home</a></li>
-                        <li><a href="#portfolio" class="nav-link text-[#E4EDEF] hover:text-[#89CCD4]">Portfolio</a></li>
-                      <li><a href="#about" class="nav-link text-[#E4EDEF] hover:text-[#89CCD4]">About</a></li>
-                        <li><a href="#contact" class="nav-link text-[#E4EDEF] hover:text-[#89CCD4]">Contact</a></li>
-                    </ul>
-                </nav>
-                <button class="md:hidden text-[#E4EDEF]">
-                    <i class="fas fa-bars text-2xl"></i>
-                </button>
-            </div>
-        </div>
-    </header>
-    
-    <!-- Hero Section -->
-    <section class="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
-        <!-- Video Background -->
-        <div class="video-container-bg">
-        <iframe 
-            loading="eager"
-            src="https://player.vimeo.com/video/1080537001?background=1&autoplay=1&loop=1&muted=1&title=0&byline=0&portrait=0&background=1"
-            frameborder="0"
-            allow="autoplay; fullscreen"
-            allowfullscreen
-            webkitallowfullscreen
-            mozallowfullscreen>
-        </iframe>
-        </div>
-        
-        <!-- Dark Overlay -->
-        <div class="overlay"></div>
-                    
-       
-        
-        <!-- Hero Content -->
-        <div class="hero-content px-4 text-center max-w-4xl mx-auto">
-            <!-- Logo -->
-            <div class="logo mb-8">
-                <img src="https://i.imgur.com/lDI5kxW.png" alt="Motion Design Studio Logo" class="mx-auto w-64 md:w-80">
-            </div>
-            
-            <!-- Subtitle -->
-            <p class="text-lg md:text-xl lg:text-2xl font-light mb-12 leading-relaxed opacity-90">
-                Motion design that flows like the sea — creating animations that blend technique, vision, and commitment in every frame.
-            </p>
-            
-            <!-- Button -->
-            <a href="#portfolio" class="bg-[#1a365d] hover:bg-[#2c5282] text-white font-medium py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg inline-block">
-                Explore Work
-            </a>
-        </div>
-    </section>
-    
-    <!-- Main Content -->
-    <main class="container mx-auto px-6 pb-20">
-        <!-- Video Portfolio Section -->
-        <section id="portfolio" class="py-20 fade-in">
-            <div class="flex justify-center mb-16">
-                <img src="https://i.imgur.com/lb1kQp1.png" alt="Mares Motion Logo" class="logo-img max-w-xs">
-            </div>
-            
-            <div class="space-y-20">
-                <!-- Video 1 -->
-                <div class="video-container">
-                    <div class="video-wrapper">
-                        <iframe                        
-                        src="https://player.vimeo.com/video/672767070?autoplay=1&loop=1&muted=1&controls=1&title=0&byline=0&portrait=0&background=1" 
-                        frameborder="0" 
-                        allow="autoplay; fullscreen" 
-                        allowfullscreen
-                        webkitallowfullscreen
-                        mozallowfullscreen>
-                        </iframe>
 
+        <header class="fixed top-0 left-0 w-full bg-black bg-opacity-90 z-50 shadow-md">
+            <div class="container mx-auto px-6 py-4">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <img src="https://i.imgur.com/lDI5kxW.png" alt="Mares Motion Logo" class="mares-logo">
                     </div>
+                    <nav class="hidden md:block">
+                        <ul class="flex space-x-8">
+                            <li><a href="#home" class="nav-link text-[#E4EDEF] hover:text-[#89CCD4]">Home</a></li>
+                            <li><a href="#portfolio" class="nav-link text-[#E4EDEF] hover:text-[#89CCD4]">Portfolio</a></li>
+                            <li><a href="#about" class="nav-link text-[#E4EDEF] hover:text-[#89CCD4]">About</a></li>
+                            <li><a href="#contact" class="nav-link text-[#E4EDEF] hover:text-[#89CCD4]">Contact</a></li>
+                        </ul>
+                    </nav>
+                    <button class="md:hidden text-[#E4EDEF]">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
                 </div>
-                
-                <!-- Video 2 -->
-                <div class="video-container">
-                    <div class="video-wrapper">
-                        <iframe 
-                          loading="lazy"
-                          src="https://player.vimeo.com/video/767413928?autoplay=1&loop=1&muted=1&controls=1&title=0&byline=0&portrait=0&background=1" 
-                          frameborder="0" 
-                          allow="autoplay; fullscreen" 
-                          allowfullscreen
-                          webkitallowfullscreen
-                          mozallowfullscreen>
-                      </iframe>
+            </div>
+        </header>
 
-                    </div>
-                </div>
-                
-                <!-- Video 3 -->
-                <div class="video-container">
-                    <div class="video-wrapper">
-                        <iframe    
-                        loading="lazy"
-                        src="https://player.vimeo.com/video/767417042?autoplay=1&loop=1&muted=1&controls=1&title=0&byline=0&portrait=0&background=1"
+        <section class="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
+            <div class="video-container-bg">
+                <iframe
+                        loading="eager"
+                        src="https://player.vimeo.com/video/1080537001?background=1&autoplay=1&loop=1&muted=1&title=0&byline=0&portrait=0&autopause=0"
                         frameborder="0"
                         allow="autoplay; fullscreen"
                         allowfullscreen
                         webkitallowfullscreen
                         mozallowfullscreen>
-                      </iframe>
+                </iframe>
+            </div>
 
-                    </div>
+            <div class="overlay"></div>
+
+
+
+            <div class="hero-content px-4 text-center max-w-4xl mx-auto">
+                <div class="logo mb-8">
+                    <img src="https://i.imgur.com/lDI5kxW.png" alt="Motion Design Studio Logo" class="mx-auto w-64 md:w-80">
                 </div>
-                
-                <!-- Video 4 -->
-                <div class="video-container">
-                    <div class="video-wrapper">
-                        <iframe 
-                          loading="lazy"
-                          src="https://player.vimeo.com/video/767414516?autoplay=1&loop=1&muted=1&controls=1&title=0&byline=0&portrait=0&background=1" 
-                          frameborder="0" 
-                          allow="autoplay; fullscreen" 
-                          allowfullscreen
-                          webkitallowfullscreen
-                          mozallowfullscreen>
-                        </iframe>
-                    </div>
-                </div>
+
+                <p class="text-lg md:text-xl lg:text-2xl font-light mb-12 leading-relaxed opacity-90">
+                    Motion design that flows like the sea — creating animations that blend technique, vision, and commitment
+                    in every frame.
+                </p>
+
+                <a href="#portfolio"
+                   class="bg-[#1a365d] hover:bg-[#2c5282] text-white font-medium py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg inline-block">
+                    Explore Work
+                </a>
             </div>
         </section>
-        
-        <!-- About Section -->
-        <section id="about" class="py-20 fade-in">
-      <div class="flex flex-col lg:flex-row items-center gap-12">
-        <div class="lg:w-1/2">
-          <div class="mb-8">
-            <img src="https://i.imgur.com/lb1kQp1.png" alt="Mares Motion Logo" class="mares-logo2">
-          </div>
-          <p class="text-lg mb-6">
-            Mares Motion is a creative studio specializing in motion design and visual storytelling. Inspired by the fluidity and depth of the ocean, we create captivating animations that bring ideas to life.
-          </p>
-          <p class="text-lg mb-6">
-            Our approach combines technical precision with artistic vision, resulting in work that is both visually stunning and strategically effective.
-          </p>
-          <p class="text-lg">
-            Whether you need promotional videos, explainer animations, or branded motion graphics, we're here to help your message flow beautifully.
-          </p>
-        </div>
-        <div class="lg:w-1/2">
-          <div class="rounded-xl overflow-hidden">
-            <img src="https://i.imgur.com/xpT87AI.png" alt="About Side Image" class="w-3/4 h-auto rounded-xl shadow-lg">
-                    </div>
+
+        <main class="container mx-auto px-6 pb-20">
+            <section id="portfolio" class="py-20 fade-in">
+                <div class="flex justify-center mb-16">
+                    <img src="https://i.imgur.com/lb1kQp1.png" alt="Mares Motion Logo" class="logo-img max-w-xs">
                 </div>
-            </div>
-        </section>
-        
-        <!-- Contact Section -->
-        <section id="contact" class="py-20 fade-in">
-            <div class="flex justify-center mb-16">
-            </div>
-            
-            <div class="flex flex-col lg:flex-row gap-12">
-                <div class="lg:w-1/2">
-                    <h3 class="text-2xl font-bold mb-6 text-[#E4EDEF]">Contact Information</h3>
-                    <div class="space-y-6">
-                        <div class="flex items-start">
-                            <div class="text-[#89CCD4] mr-4 mt-1">
-                                <i class="fas fa-envelope text-xl"></i>
+
+                <div class="space-y-20">
+                    <div class="video-container">
+                        <div class="video-wrapper">
+                            <iframe
+                                    src="https://player.vimeo.com/video/1082028000?autoplay=1&loop=0&muted=0&controls=1&title=0&byline=0&portrait=0&autopause=0"
+                                    frameborder="0"
+                                    allow="autoplay; fullscreen"
+                                    allowfullscreen
+                                    webkitallowfullscreen
+                                    mozallowfullscreen>
+                            </iframe>
+                        </div>
+                        <div class="video-overlay-text">Portifolio 2023</div>
+                    </div>
+
+                    <div class="video-container">
+                        <div class="video-wrapper">
+                            <iframe
+                                    src="https://player.vimeo.com/video/672767070?autoplay=0&loop=0&muted=0&controls=1&title=0&byline=0&portrait=0&autopause=0"
+                                    frameborder="0"
+                                    allow="autoplay; fullscreen"
+                                    allowfullscreen
+                                    webkitallowfullscreen
+                                    mozallowfullscreen>
+                            </iframe>
+                        </div>
+                        <div class="video-overlay-text">Portifolio Antigo</div>
+                    </div>
+
+                    <div class="video-container">
+                        <div class="video-wrapper">
+                            <iframe
+                                    src="https://player.vimeo.com/video/1082029738?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0"
+                                    frameborder="0"
+                                    allow="autoplay; fullscreen"
+                                    allowfullscreen
+                                    webkitallowfullscreen
+                                    mozallowfullscreen>
+                            </iframe>
+                        </div>
+                        <div class="video-overlay-text">Video de Intros</div>
+                    </div>
+
+                    <div class="grid-container">
+                        <div class="video-container">
+                            <div class="video-wrapper">
+                                <iframe
+                                        src="https://player.vimeo.com/video/1082029360?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0"
+                                        frameborder="0"
+                                        allow="autoplay; fullscreen"
+                                        allowfullscreen
+                                        webkitallowfullscreen
+                                        mozallowfullscreen>
+                                </iframe>
                             </div>
-                            <div>
-                                <h4 class="text-lg font-semibold text-[#E4EDEF]">Email</h4>
-                                <a href="mailto:matheusresende47@gmail.com" class="text-[#89CCD4] hover:underline">matheusresende47@gmail.com</a>
+                            <div class="video-overlay-text">Personagens</div>
+                        </div>
+                        <div class="video-container">
+                            <div class="video-wrapper">
+                                <iframe
+                                        src="https://player.vimeo.com/video/1082029270?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0"
+                                        frameborder="0"
+                                        allow="autoplay; fullscreen"
+                                        allowfullscreen
+                                        webkitallowfullscreen
+                                        mozallowfullscreen>
+                                </iframe>
+                            </div>
+                            <div class="video-overlay-text">Verticais</div>
+                        </div>
+                    </div>
+
+                    <div class="grid-container">
+                        <div class="video-container">
+                            <div class="video-wrapper">
+                                <iframe
+                                        src="https://player.vimeo.com/video/767417042?share=copy&autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0"
+                                        frameborder="0"
+                                        allow="autoplay; fullscreen"
+                                        allowfullscreen
+                                        webkitallowfullscreen
+                                        mozallowfullscreen>
+                                </iframe>
+                            </div>
+                            <div class="video-overlay-text">Nethome</div>
+                        </div>
+                        <div class="video-container">
+                            <div class="video-wrapper">
+                                <iframe
+                                        src="https://player.vimeo.com/video/767413928?share=copy&autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0"
+                                        frameborder="0"
+                                        allow="autoplay; fullscreen"
+                                        allowfullscreen
+                                        webkitallowfullscreen
+                                        mozallowfullscreen>
+                                </iframe>
+                            </div>
+                            <div class="video-overlay-text">Portifolio</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="about" class="py-20 fade-in">
+                <div class="flex flex-col lg:flex-row items-center gap-12">
+                    <div class="lg:w-1/2">
+                        <div class="mb-8">
+                            <img src="https://i.imgur.com/lb1kQp1.png" alt="Mares Motion Logo" class="mares-logo2">
+                        </div>
+                        <p class="text-lg mb-6">
+                            Mares Motion is a creative studio specializing in motion design and visual storytelling. Inspired by the
+                            fluidity and depth of the ocean, we create captivating animations that bring ideas to life.
+                        </p>
+                        <p class="text-lg mb-6">
+                            Our approach combines technical precision with artistic vision, resulting in work that is both visually
+                            stunning and strategically effective.
+                        </p>
+                        <p class="text-lg">
+                            Whether you need promotional videos, explainer animations, or branded motion graphics, we're here to help
+                            your message flow beautifully.
+                        </p>
+                    </div>
+                    <div class="lg:w-1/2">
+                        <div class="rounded-xl overflow-hidden">
+                            <img src="https://i.imgur.com/xpT87AI.png" alt="About Side Image"
+                                 class="w-3/4 h-auto rounded-xl shadow-lg">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact" class="py-20 fade-in">
+                <div class="flex justify-center mb-16">
+                </div>
+
+                <div class="flex flex-col lg:flex-row gap-12">
+                    <div class="lg:w-1/2">
+                        <h3 class="text-2xl font-bold mb-6 text-[#E4EDEF]">Contact Information</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="text-[#89CCD4] mr-4 mt-1">
+                                    <i class="fas fa-envelope text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold text-[#E4EDEF]">Email</h4>
+                                    <a href="mailto:matheusresende47@gmail.com"
+                                       class="text-[#89CCD4] hover:underline">matheusresende47@gmail.com</a>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="text-[#89CCD4] mr-4 mt-1">
+                                    <i class="fab fa-whatsapp text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold text-[#E4EDEF]">WhatsApp</h4>
+                                    <a href="https://api.whatsapp.com/send?phone=5531991976508"
+                                       class="text-[#89CCD4] hover:underline">+55 31 99197-6508</a>
+                                </div>
                             </div>
                         </div>
-                        <div class="flex items-start">
-                            <div class="text-[#89CCD4] mr-4 mt-1">
-                                <i class="fab fa-whatsapp text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-semibold text-[#E4EDEF]">WhatsApp</h4>
-                                <a href="https://api.whatsapp.com/send?phone=5531991976508" class="text-[#89CCD4] hover:underline">+55 31 99197-6508</a>
-                            </div>
-                        </div>
+
+                        <a href="https://api.whatsapp.com/send?phone=5531991976508"
+                           class="fixed bottom-8 right-8 bg-[#25D366] text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl shadow-lg whatsapp-btn z-50">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
                     </div>
-                    
-                    <!-- WhatsApp Button -->
-                    <a href="https://api.whatsapp.com/send?phone=5531991976508" class="fixed bottom-8 right-8 bg-[#25D366] text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl shadow-lg whatsapp-btn z-50">
-                        <i class="fab fa-whatsapp"></i>
-                    </a>
+                </div>
+            </section>
+        </main>
+
+        <footer class="bg-black bg-opacity-70 py-8">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col items-center">
+                    <img src="https://i.imgur.com/lb1kQp1.png" alt="Mares Motion Logo" class="footer-logo mb-6">
+                    <div class="text-[#E4EDEF] mb-4 text-center">
+                        © 2025 Mares Motion – All rights reserved.
+                    </div>
                 </div>
             </div>
-        </section>
-    </main>
-    
-    <!-- Footer -->
-    <footer class="bg-black bg-opacity-70 py-8">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col items-center">
-                <img src="https://i.imgur.com/lb1kQp1.png" alt="Mares Motion Logo" class="footer-logo mb-6">
-                <div class="text-[#E4EDEF] mb-4 text-center">
-                    © 2025 Mares Motion – All rights reserved.
-                </div>
-            </div>
-        </div>
-    </footer>
-    
-    <script>
-        
-        
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
+        </footer>
+
+        <script>
+
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
                 });
             });
-        });
-        
-        // Intersection Observer for fade-in animations
-        const fadeElements = document.querySelectorAll('.fade-in');
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = 1;
-                }
-            });
-        }, {
-            threshold: 0.1
-        });
-        
-        fadeElements.forEach(el => {
-            el.style.opacity = 0;
-            observer.observe(el);
-        });
-        
-        // Initialize on DOM load
-        document.addEventListener('DOMContentLoaded', () => {
-                      // Load Vimeo API script
-            const tag = document.createElement('script');
-            tag.src = "https://player.vimeo.com/api/player.js";
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        });
 
-        // Ripple effect script
-        document.addEventListener('DOMContentLoaded', () => {
-            if (window.matchMedia("(hover: hover)").matches) {
-                let mouseX = 0;
-                let mouseY = 0;
+            // Intersection Observer for fade-in animations
+            const fadeElements = document.querySelectorAll('.fade-in');
 
-                document.addEventListener('mousemove', (e) => {
-                    mouseX = e.clientX;
-                    mouseY = e.clientY;
-                    createRipple();
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                    }
                 });
+            }, {
+                threshold: 0.1
+            });
 
-                function createRipple() {
-                    const ripple = document.createElement('div');
-                    ripple.classList.add('water-ripple');
-                    ripple.style.left = `${mouseX}px`;
-                    ripple.style.top = `${mouseY}px`;
-                    document.body.appendChild(ripple);
+            fadeElements.forEach(el => {
+                el.style.opacity = 0;
+                observer.observe(el);
+            });
 
-                    setTimeout(() => {
-                        ripple.remove();
-                    }, 1200);
+            // Initialize on DOM load
+            document.addEventListener('DOMContentLoaded', () => {
+                // Load Vimeo API script
+                const tag = document.createElement('script');
+                tag.src = "https://player.vimeo.com/api/player.js";
+                const firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            });
+
+            // Ripple effect script
+            document.addEventListener('DOMContentLoaded', () => {
+                if (window.matchMedia("(hover: hover)").matches) {
+                    let mouseX = 0;
+                    let mouseY = 0;
+
+                    document.addEventListener('mousemove', (e) => {
+                        mouseX = e.clientX;
+                        mouseY = e.clientY;
+                        createRipple();
+                    });
+
+                    function createRipple() {
+                        const ripple = document.createElement('div');
+                        ripple.classList.add('water-ripple');
+                        ripple.style.left = `${mouseX}px`;
+                        ripple.style.top = `${mouseY}px`;
+                        document.body.appendChild(ripple);
+
+                        setTimeout(() => {
+                            ripple.remove();
+                        }, 1200);
                 }
             }
         });
 
-    </script>
- <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d4347b66ddfe4a92bd9da109d7256319"}'></script><!-- End Cloudflare Web Analytics -->
-</body>
+        </script>
+        <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
+                data-cf-beacon='{"token": "d4347b66ddfe4a92bd9da109d7256319"}'></script>
+    </body>
 </html>
