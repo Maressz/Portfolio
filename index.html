@@ -355,7 +355,7 @@
         <section class="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
             <div class="video-container-bg">
                 <iframe
-                        loading="lazy"
+                        loading="eager"
                         src="https://player.vimeo.com/video/1080537001?background=1&autoplay=1&loop=1&muted=1&title=0&byline=0&portrait=0&autopause=0"
                         frameborder="0"
                         allow="autoplay; fullscreen"
@@ -406,8 +406,8 @@
                     <div class="video-container">
                         <div class="video-wrapper">
                             <iframe
+                                  loading="lazy"
                                     id="video-1082028000"
-                                    loading="lazy"
                                     src="https://player.vimeo.com/video/1082028000?autoplay=1&loop=0&muted=0&controls=1&title=0&byline=0&portrait=0&autopause=0"
                                     frameborder="0"
                                     allow="autoplay; fullscreen"
@@ -421,12 +421,11 @@
 
                     <div class="video-container">
                         <div class="video-wrapper">
-                            <iframe
-                            loading="lazy"
-                            src="https://player.vimeo.com/video/672767070?autoplay=0&loop=0&muted=0&controls=1&title=0&byline=0&portrait=0&autopause=0"
-                            class="absolute top-0 left-0 w-full h-full z-0" 
-                            frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen>
-                            </iframe>
+                            <iframe src="https://player.vimeo.com/video/672767070?autoplay=0&loop=0&muted=0&controls=1&title=0&byline=0&portrait=0&autopause=0"
+                class="absolute top-0 left-0 w-full h-full z-0" 
+                frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen>
+                    </iframe>
+
                         </div>
                        
                     </div>
@@ -434,7 +433,7 @@
                     <div class="video-container">
                         <div class="video-wrapper">
                             <iframe
-                                    loading="lazy"
+                                  loading="lazy"
                                     src="https://player.vimeo.com/video/1082029738?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0"
                                     frameborder="0"
                                     allow="autoplay; fullscreen"
@@ -450,7 +449,7 @@
                         <div class="video-container">
                             <div class="video-wrapper">
                                 <iframe
-                                        loading="lazy"
+                                      loading="lazy"
                                         src="https://player.vimeo.com/video/1082029360?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0"
                                         frameborder="0"
                                         allow="autoplay; fullscreen"
@@ -464,7 +463,7 @@
                         <div class="video-container">
                             <div class="video-wrapper">
                                 <iframe
-                                        loading="lazy"
+                                      loading="lazy"
                                         src="https://player.vimeo.com/video/1082029270?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0"
                                         frameborder="0"
                                         allow="autoplay; fullscreen"
@@ -475,11 +474,13 @@
                             </div>
                             <div class="video-overlay-text">Vertical Format</div>
                         </div>
+                    </div>
+
                     <div class="grid-container">
                         <div class="video-container">
                             <div class="video-wrapper">
-                                 <iframe
-                                        loading="lazy"
+                                <iframe
+                                      loading="lazy"
                                         src="https://player.vimeo.com/video/767417042?share=copy&autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0"
                                         frameborder="0"
                                         allow="autoplay; fullscreen"
@@ -493,7 +494,7 @@
                         <div class="video-container">
                             <div class="video-wrapper">
                                 <iframe
-                                        loading="lazy"
+                                       loading="lazy"
                                         src="https://player.vimeo.com/video/767413928?share=copy&autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0"
                                         frameborder="0"
                                         allow="autoplay; fullscreen"
@@ -587,6 +588,8 @@
         </footer>
 
         <script>
+
+
             // Smooth scrolling for anchor links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
@@ -616,6 +619,50 @@
                 observer.observe(el);
             });
 
+            // Initialize on DOM load
+            document.addEventListener('DOMContentLoaded', () => {
+                // Load Vimeo API script
+                const tag = document.createElement('script');
+                tag.src = "https://player.vimeo.com/api/player.js";
+                const firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+                // Function to set the volume of the video
+                function setVideoVolume(videoId, volume) {
+                    const iframe = document.getElementById(videoId);
+                    if (iframe) {
+                        // Check if the iframe has a contentWindow property.
+                        if (iframe.contentWindow) {
+                            // Use the Vimeo API's postMessage to communicate with the player.
+                            const message = {
+                                method: 'setVolume',
+                                value: volume
+                            };
+                            // It's crucial to send the message to the correct origin.
+                            iframe.contentWindow.postMessage(message, 'https://player.vimeo.com');
+
+                            // Listen for the 'ready' event to ensure the player is ready to receive commands.
+                            const readyListener = (event) => {
+                                if (event.origin === 'https://player.vimeo.com' && event.data === 'ready') {
+                                    // Send the setVolume message *after* the player is ready.
+                                    iframe.contentWindow.postMessage(message, 'https://player.vimeo.com');
+
+                                    // Remove the event listener after it's been used.
+                                    window.removeEventListener('message', readyListener);
+                                }
+                            };
+                            window.addEventListener('message', readyListener);
+                        } else {
+                            console.error('iframe.contentWindow is not defined. Cannot set volume.');
+                        }
+                    } else {
+                        console.warn(Iframe with ID "${videoId}" not found.);
+                    }
+                }
+                // Set volume for the first video, after the Vimeo API is loaded and ready
+                setVideoVolume('video-1082028000', 0.2);
+            });
+
             // Ripple effect script
             document.addEventListener('DOMContentLoaded', () => {
                 if (window.matchMedia("(hover: hover)").matches) {
@@ -631,18 +678,33 @@
                     function createRipple() {
                         const ripple = document.createElement('div');
                         ripple.classList.add('water-ripple');
-                        ripple.style.left = `${mouseX}px`;
-                        ripple.style.top = `${mouseY}px`;
+                        ripple.style.left = ${mouseX}px;
+                        ripple.style.top = ${mouseY}px;
                         document.body.appendChild(ripple);
 
                         setTimeout(() => {
                             ripple.remove();
                         }, 1200);
-                    }
                 }
-            });
+            }
+        });
+
         </script>
         <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
                 data-cf-beacon='{"token": "d4347b66ddfe4a92bd9da109d7256319"}'></script>
+      <script src="https://player.vimeo.com/api/player.js"></script>
+<script>
+    const iframe = document.querySelector('iframe[src*="1082028000"]');
+    const player = new Vimeo.Player(iframe);
+
+    player.setVolume(0.2) // 0 (mudo) até 1 (máximo)
+        .then(function(volume) {
+            console.log('Volume definido para:', volume);
+        })
+        .catch(function(error) {
+            console.error('Erro ao definir volume:', error);
+        });
+</script>
+
     </body>
 </html>
