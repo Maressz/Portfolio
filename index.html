@@ -9,42 +9,33 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Ripple circle effect */
-        .water-ripple {
-            position: fixed;
-            width: 40px;
-            height: 40px;
-            border: 2px solid rgba(100, 255, 255, 0.6);
+        /* Novo Ripple Clean Effect CSS */
+        .ripple {
+            position: fixed; /* Usar fixed para que o ripple acompanhe o cursor na tela toda */
             border-radius: 50%;
+            border: 1px solid rgba(100, 149, 237, 0.5); /* Cor do novo ripple */
+            transform: scale(0);
             pointer-events: none;
-            z-index: 9997;
-            transform: translate(-50%, -50%) scale(0);
-            opacity: 0;
-            animation: ripple 1.2s forwards;
+            animation: ripple-animation 1.2s ease-out;
+            z-index: 40; /* Para ficar acima do conteúdo mas abaixo de menus fixos (z-50) */
+            width: 20px; /* Tamanho definido no JS, mas pode ser referenciado aqui */
+            height: 20px;/* Tamanho definido no JS, mas pode ser referenciado aqui */
         }
-
-        @keyframes ripple {
-            0% {
-                transform: translate(-50%, -50%) scale(0);
-                opacity: 0.6;
-            }
-            100% {
-                transform: translate(-50%, -50%) scale(2);
+        
+        @keyframes ripple-animation {
+            to {
+                transform: scale(3);
                 opacity: 0;
             }
         }
 
-        @media (hover: none) {
-            .water-ripple {
-                display: none;
-            }
-        }
-
+        /* Estilos originais do site (sem o water-ripple antigo) */
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #141313;
             color: #E4EDEF;
             overflow-x: hidden;
+            /* cursor: default;  O novo script já lida bem com mouse/touch, não precisa forçar cursor */
         }
 
         .wave-container {
@@ -277,17 +268,6 @@
             transform: scale(1.02);
         }
 
-        /* Hide custom ripple on mobile */
-        @media (hover: none) {
-            body {
-                cursor: default;
-            }
-
-            .water-ripple {
-                display: none;
-            }
-        }
-
         .video-overlay-text {
             position: absolute;
             bottom: 10px;
@@ -312,6 +292,12 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
+        /* Media query para cursor em dispositivos sem hover, se necessário, pode ser adicionada aqui */
+        /* @media (hover: none) {
+            body {
+                cursor: default;
+            }
+        } */
     </style>
     <script type="text/javascript">
         (function (c, l, a, r, i, t, y) {
@@ -326,385 +312,398 @@
         })(window, document, "clarity", "script", "resm485i3e");
     </script>
 </head>
-<body class="relative">
-    <body class="relative">
-        <div id="home"></div>
+<body class="relative"> <div id="home"></div>
 
+    <header class="fixed top-0 left-0 w-full bg-black bg-opacity-90 z-50 shadow-md">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div>
+                    <img src="https://i.imgur.com/lDI5kxW.png" alt="Mares Motion Logo" class="mares-logo">
+                </div>
+                <nav class="hidden md:block">
+                    <ul class="flex space-x-8">
+                        <li><a href="#home" class="nav-link text-[#E4EDEF] hover:text-[#89CCD4]">Home</a></li>
+                        <li><a href="#portfolio" class="nav-link text-[#E4EDEF] hover:text-[#89CCD4]">Portfolio</a></li>
+                        <li><a href="#about" class="nav-link text-[#E4EDEF] hover:text-[#89CCD4]">About</a></li>
+                        <li><a href="#contact" class="nav-link text-[#E4EDEF] hover:text-[#89CCD4]">Contact</a></li>
+                    </ul>
+                </nav>
+                <button class="md:hidden text-[#E4EDEF]">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </header>
 
-        <header class="fixed top-0 left-0 w-full bg-black bg-opacity-90 z-50 shadow-md">
-            <div class="container mx-auto px-6 py-4">
-                <div class="flex justify-between items-center">
-                    <div>
-                        <img src="https://i.imgur.com/lDI5kxW.png" alt="Mares Motion Logo" class="mares-logo">
+    <section class="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
+        <div class="video-container-bg">
+            <iframe
+                    loading="eager"
+                    src="https://player.vimeo.com/video/1080537001?background=1&autoplay=1&loop=1&muted=1&title=0&byline=0&portrait=0&autopause=0"
+                    frameborder="0"
+                    allow="autoplay; fullscreen"
+                    allowfullscreen
+                    webkitallowfullscreen
+                    mozallowfullscreen>
+            </iframe>
+        </div>
+        <div class="overlay"></div>
+        <div class="hero-content px-4 text-center max-w-4xl mx-auto">
+            <div class="logo mb-8">
+                <img src="https://i.imgur.com/lDI5kxW.png" alt="Motion Design Studio Logo" class="mx-auto w-64 md:w-80">
+            </div>
+            <p class="text-lg md:text-xl lg:text-2xl font-light mb-12 leading-relaxed opacity-90">
+                Motion design that flows like the sea — creating animations that blend technique, vision, and commitment
+                in every frame.
+            </p>
+            <a href="#portfolio"
+               class="bg-[#1a365d] hover:bg-[#2c5282] text-white font-medium py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg inline-block">
+                Explore Work
+            </a>
+        </div>
+    </section>
+
+    <main class="container mx-auto px-6 pb-20">
+        <section id="portfolio" class="py-20 fade-in">
+            <div class="flex justify-center mb-16">
+                <div class="text-center px-4 py-2">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-2">
+                        PORTIFOLIO
+                    </h2>
+                    <p class="text-white text-lg md:text-xl font-medium">
+                        Dive into the videos below — each one created by me over 7 years of experience in motion design.
+                    </p>
+                </div>
+            </div>
+
+            <div class="space-y-20">
+                <div class="video-container">
+                    <div class="video-wrapper">
+                        <iframe
+                                loading="lazy"
+                                id="video-1082028000"
+                                src="https://player.vimeo.com/video/1082028000?autoplay=1&loop=0&muted=0&controls=1&title=0&byline=0&portrait=0&autopause=0&quality=auto&dnt=1"
+                                frameborder="0"
+                                allow="autoplay; fullscreen"
+                                allowfullscreen
+                                webkitallowfullscreen
+                                mozallowfullscreen>
+                        </iframe>
                     </div>
-                    <nav class="hidden md:block">
-                        <ul class="flex space-x-8">
-                            <li><a href="#home" class="nav-link text-[#E4EDEF] hover:text-[#89CCD4]">Home</a></li>
-                            <li><a href="#portfolio" class="nav-link text-[#E4EDEF] hover:text-[#89CCD4]">Portfolio</a></li>
-                            <li><a href="#about" class="nav-link text-[#E4EDEF] hover:text-[#89CCD4]">About</a></li>
-                            <li><a href="#contact" class="nav-link text-[#E4EDEF] hover:text-[#89CCD4]">Contact</a></li>
-                        </ul>
-                    </nav>
-                    <button class="md:hidden text-[#E4EDEF]">
-                        <i class="fas fa-bars text-2xl"></i>
-                    </button>
-                </div>
-            </div>
-        </header>
-
-        <section class="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
-            <div class="video-container-bg">
-                <iframe
-                        loading="eager"
-                        src="https://player.vimeo.com/video/1080537001?background=1&autoplay=1&loop=1&muted=1&title=0&byline=0&portrait=0&autopause=0"
-                        frameborder="0"
-                        allow="autoplay; fullscreen"
-                        allowfullscreen
-                        webkitallowfullscreen
-                        mozallowfullscreen>
-                </iframe>
-            </div>
-
-            <div class="overlay"></div>
-
-
-
-            <div class="hero-content px-4 text-center max-w-4xl mx-auto">
-                <div class="logo mb-8">
-                    <img src="https://i.imgur.com/lDI5kxW.png" alt="Motion Design Studio Logo" class="mx-auto w-64 md:w-80">
                 </div>
 
-                <p class="text-lg md:text-xl lg:text-2xl font-light mb-12 leading-relaxed opacity-90">
-                    Motion design that flows like the sea — creating animations that blend technique, vision, and commitment
-                    in every frame.
-                </p>
+                <div class="video-container">
+                    <div class="video-wrapper">
+                        <iframe src="https://player.vimeo.com/video/672767070?autoplay=0&loop=0&muted=0&controls=1&title=0&byline=0&portrait=0&autopause=0&quality=auto&dnt=1"
+                                class="absolute top-0 left-0 w-full h-full z-0" 
+                                frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
 
-                <a href="#portfolio"
-                   class="bg-[#1a365d] hover:bg-[#2c5282] text-white font-medium py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg inline-block">
-                    Explore Work
-                </a>
+                <div class="video-container">
+                    <div class="video-wrapper">
+                        <iframe
+                                loading="lazy"
+                                src="https://player.vimeo.com/video/1082029738?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0&quality=auto&dnt=1"
+                                frameborder="0"
+                                allow="autoplay; fullscreen"
+                                allowfullscreen
+                                webkitallowfullscreen
+                                mozallowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-overlay-text">Logo Reveal</div>
+                </div>
+
+                <div class="grid-container">
+                    <div class="video-container">
+                        <div class="video-wrapper">
+                            <iframe
+                                    loading="lazy"
+                                    src="https://player.vimeo.com/video/1082029360?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0&quality=auto&dnt=1"
+                                    frameborder="0"
+                                    allow="autoplay; fullscreen"
+                                    allowfullscreen
+                                    webkitallowfullscreen
+                                    mozallowfullscreen>
+                            </iframe>
+                        </div>
+                        <div class="video-overlay-text">Animated Cast</div>
+                    </div>
+                    <div class="video-container">
+                        <div class="video-wrapper">
+                            <iframe
+                                    loading="lazy"
+                                    src="https://player.vimeo.com/video/1082029270?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0&quality=auto&dnt=1"
+                                    frameborder="0"
+                                    allow="autoplay; fullscreen"
+                                    allowfullscreen
+                                    webkitallowfullscreen
+                                    mozallowfullscreen>
+                            </iframe>
+                        </div>
+                        <div class="video-overlay-text">Vertical Format</div>
+                    </div>
+                </div>
+
+                <div class="grid-container">
+                    <div class="video-container">
+                        <div class="video-wrapper">
+                            <iframe
+                                    loading="lazy"
+                                    src="https://player.vimeo.com/video/767417042?share=copy&autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0&quality=auto&dnt=1"
+                                    frameborder="0"
+                                    allow="autoplay; fullscreen"
+                                    allowfullscreen
+                                    webkitallowfullscreen
+                                    mozallowfullscreen>
+                            </iframe>
+                        </div>
+                        <div class="video-overlay-text">Nethone</div>
+                    </div>
+                    <div class="video-container">
+                        <div class="video-wrapper">
+                            <iframe
+                                   loading="lazy"
+                                   src="https://player.vimeo.com/video/767413928?share=copy&autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0&quality=auto&dnt=1"
+                                   frameborder="0"
+                                   allow="autoplay; fullscreen"
+                                   allowfullscreen
+                                   webkitallowfullscreen
+                                   mozallowfullscreen>
+                            </iframe>
+                        </div>
+                        <div class="video-overlay-text">Rede Salesiana</div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <main class="container mx-auto px-6 pb-20">
-            <section id="portfolio" class="py-20 fade-in">
-                <div class="flex justify-center mb-16">
-                  
-                     <div class="text-center px-4 py-2">
-    <h2 class="text-3xl md:text-4xl font-bold text-white mb-2">
-      PORTIFOLIO
-    </h2>
-    <p class="text-white text-lg md:text-xl font-medium">
-      Dive into the videos below — each one created by me over 7 years of experience in motion design.
-    </p>
-  </div>
-
-
+        <section id="about" class="py-20 fade-in">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2">
+                    <div class="mb-8">
+                        <img src="https://i.imgur.com/lb1kQp1.png" alt="Mares Motion Logo" class="mares-logo2">
+                    </div>
+                    <p class="text-lg mb-6">
+                        Mares Motion is a creative studio specializing in motion design and visual storytelling. Inspired by the
+                        fluidity and depth of the ocean, we create captivating animations that bring ideas to life.
+                    </p>
+                    <p class="text-lg mb-6">
+                        Our approach combines technical precision with artistic vision, resulting in work that is both visually
+                        stunning and strategically effective.
+                    </p>
+                    <p class="text-lg">
+                        Whether you need promotional videos, explainer animations, or branded motion graphics, we're here to help
+                        your message flow beautifully.
+                    </p>
                 </div>
-
-                <div class="space-y-20">
-                    <div class="video-container">
-                        <div class="video-wrapper">
-                            <iframe
-                                  loading="lazy"
-                                    id="video-1082028000"
-                                    src="https://player.vimeo.com/video/1082028000?autoplay=1&loop=0&muted=0&controls=1&title=0&byline=0&portrait=0&autopause=0&quality=auto&dnt=1"
-                                    frameborder="0"
-                                    allow="autoplay; fullscreen"
-                                    allowfullscreen
-                                    webkitallowfullscreen
-                                    mozallowfullscreen>
-                            </iframe>
-                        </div>
-                        
-                    </div>
-
-                    <div class="video-container">
-                        <div class="video-wrapper">
-                            <iframe src="https://player.vimeo.com/video/672767070?autoplay=0&loop=0&muted=0&controls=1&title=0&byline=0&portrait=0&autopause=0&quality=auto&dnt=1"
-                class="absolute top-0 left-0 w-full h-full z-0" 
-                frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen>
-                    </iframe>
-
-                        </div>
-                       
-                    </div>
-
-                    <div class="video-container">
-                        <div class="video-wrapper">
-                            <iframe
-                                  loading="lazy"
-                                    src="https://player.vimeo.com/video/1082029738?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0&quality=auto&dnt=1"
-                                    frameborder="0"
-                                    allow="autoplay; fullscreen"
-                                    allowfullscreen
-                                    webkitallowfullscreen
-                                    mozallowfullscreen>
-                            </iframe>
-                        </div>
-                        <div class="video-overlay-text">Logo Reveal</div>
-                    </div>
-
-                    <div class="grid-container">
-                        <div class="video-container">
-                            <div class="video-wrapper">
-                                <iframe
-                                      loading="lazy"
-                                        src="https://player.vimeo.com/video/1082029360?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0&quality=auto&dnt=1"
-                                        frameborder="0"
-                                        allow="autoplay; fullscreen"
-                                        allowfullscreen
-                                        webkitallowfullscreen
-                                        mozallowfullscreen>
-                                </iframe>
-                            </div>
-                            <div class="video-overlay-text">Animated Cast</div>
-                        </div>
-                        <div class="video-container">
-                            <div class="video-wrapper">
-                                <iframe
-                                      loading="lazy"
-                                        src="https://player.vimeo.com/video/1082029270?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0&quality=auto&dnt=1"
-                                        frameborder="0"
-                                        allow="autoplay; fullscreen"
-                                        allowfullscreen
-                                        webkitallowfullscreen
-                                        mozallowfullscreen>
-                                </iframe>
-                            </div>
-                            <div class="video-overlay-text">Vertical Format</div>
-                        </div>
-                    </div>
-
-                    <div class="grid-container">
-                        <div class="video-container">
-                            <div class="video-wrapper">
-                                <iframe
-                                      loading="lazy"
-                                        src="https://player.vimeo.com/video/767417042?share=copy&autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0&quality=auto&dnt=1"
-                                        frameborder="0"
-                                        allow="autoplay; fullscreen"
-                                        allowfullscreen
-                                        webkitallowfullscreen
-                                        mozallowfullscreen>
-                                </iframe>
-                            </div>
-                            <div class="video-overlay-text">Nethone</div>
-                        </div>
-                        <div class="video-container">
-                            <div class="video-wrapper">
-                                <iframe
-                                       loading="lazy"
-                                        src="https://player.vimeo.com/video/767413928?share=copy&autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0&quality=auto&dnt=1"
-                                        frameborder="0"
-                                        allow="autoplay; fullscreen"
-                                        allowfullscreen
-                                        webkitallowfullscreen
-                                        mozallowfullscreen>
-                                </iframe>
-                            </div>
-                            <div class="video-overlay-text">Rede Salesiana</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="about" class="py-20 fade-in">
-                <div class="flex flex-col lg:flex-row items-center gap-12">
-                    <div class="lg:w-1/2">
-                        <div class="mb-8">
-                            <img src="https://i.imgur.com/lb1kQp1.png" alt="Mares Motion Logo" class="mares-logo2">
-                        </div>
-                        <p class="text-lg mb-6">
-                            Mares Motion is a creative studio specializing in motion design and visual storytelling. Inspired by the
-                            fluidity and depth of the ocean, we create captivating animations that bring ideas to life.
-                        </p>
-                        <p class="text-lg mb-6">
-                            Our approach combines technical precision with artistic vision, resulting in work that is both visually
-                            stunning and strategically effective.
-                        </p>
-                        <p class="text-lg">
-                            Whether you need promotional videos, explainer animations, or branded motion graphics, we're here to help
-                            your message flow beautifully.
-                        </p>
-                    </div>
-                    <div class="lg:w-1/2">
-                        <div class="rounded-xl overflow-hidden">
-                            <img src="https://i.imgur.com/xpT87AI.png" alt="About Side Image"
-                                 class="w-3/4 h-auto rounded-xl shadow-lg">
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="contact" class="py-20 fade-in">
-                <div class="flex justify-center mb-16">
-                </div>
-
-                <div class="flex flex-col lg:flex-row gap-12">
-                    <div class="lg:w-1/2">
-                        <h3 class="text-2xl font-bold mb-6 text-[#E4EDEF]">Contact Information</h3>
-                        <div class="space-y-6">
-                            <div class="flex items-start">
-                                <div class="text-[#89CCD4] mr-4 mt-1">
-                                    <i class="fas fa-envelope text-xl"></i>
-                                </div>
-                                <div>
-                                    <h4 class="text-lg font-semibold text-[#E4EDEF]">Email</h4>
-                                    <a href="mailto:matheusresende47@gmail.com"
-                                       class="text-[#89CCD4] hover:underline">matheusresende47@gmail.com</a>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <div class="text-[#89CCD4] mr-4 mt-1">
-                                    <i class="fab fa-whatsapp text-xl"></i>
-                                </div>
-                                <div>
-                                    <h4 class="text-lg font-semibold text-[#E4EDEF]">WhatsApp</h4>
-                                    <a href="https://api.whatsapp.com/send?phone=5531991976508"
-                                       class="text-[#89CCD4] hover:underline">+55 31 99197-6508</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <a href="https://api.whatsapp.com/send?phone=5531991976508"
-                           class="fixed bottom-8 right-8 bg-[#25D366] text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl shadow-lg whatsapp-btn z-50">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <footer class="bg-black bg-opacity-70 py-8">
-            <div class="container mx-auto px-6">
-                <div class="flex flex-col items-center">
-                    <img src="https://i.imgur.com/lb1kQp1.png" alt="Mares Motion Logo" class="footer-logo mb-6">
-                    <div class="text-[#E4EDEF] mb-4 text-center">
-                        © 2025 Mares Motion – All rights reserved.
+                <div class="lg:w-1/2">
+                    <div class="rounded-xl overflow-hidden">
+                        <img src="https://i.imgur.com/xpT87AI.png" alt="About Side Image"
+                             class="w-3/4 h-auto rounded-xl shadow-lg">
                     </div>
                 </div>
             </div>
-        </footer>
+        </section>
 
-        <script>
+        <section id="contact" class="py-20 fade-in">
+            <div class="flex justify-center mb-16">
+            </div>
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="lg:w-1/2">
+                    <h3 class="text-2xl font-bold mb-6 text-[#E4EDEF]">Contact Information</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="text-[#89CCD4] mr-4 mt-1">
+                                <i class="fas fa-envelope text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-[#E4EDEF]">Email</h4>
+                                <a href="mailto:matheusresende47@gmail.com"
+                                   class="text-[#89CCD4] hover:underline">matheusresende47@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="text-[#89CCD4] mr-4 mt-1">
+                                <i class="fab fa-whatsapp text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-[#E4EDEF]">WhatsApp</h4>
+                                <a href="https://api.whatsapp.com/send?phone=5531991976508"
+                                   class="text-[#89CCD4] hover:underline">+55 31 99197-6508</a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="https://api.whatsapp.com/send?phone=5531991976508"
+                       class="fixed bottom-8 right-8 bg-[#25D366] text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl shadow-lg whatsapp-btn z-50">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
 
+    <footer class="bg-black bg-opacity-70 py-8">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col items-center">
+                <img src="https://i.imgur.com/lb1kQp1.png" alt="Mares Motion Logo" class="footer-logo mb-6">
+                <div class="text-[#E4EDEF] mb-4 text-center">
+                    © 2025 Mares Motion – All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
 
-            // Smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
                 });
             });
+        });
 
-            // Intersection Observer for fade-in animations
-            const fadeElements = document.querySelectorAll('.fade-in');
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = 1;
-                    }
-                });
-            }, {
-                threshold: 0.1
-            });
-
-            fadeElements.forEach(el => {
-                el.style.opacity = 0;
-                observer.observe(el);
-            });
-
-            // Initialize on DOM load
-            document.addEventListener('DOMContentLoaded', () => {
-                // Load Vimeo API script
-                const tag = document.createElement('script');
-                tag.src = "https://player.vimeo.com/api/player.js";
-                const firstScriptTag = document.getElementsByTagName('script')[0];
-                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-                // Function to set the volume of the video
-                function setVideoVolume(videoId, volume) {
-                    const iframe = document.getElementById(videoId);
-                    if (iframe) {
-                        // Check if the iframe has a contentWindow property.
-                        if (iframe.contentWindow) {
-                            // Use the Vimeo API's postMessage to communicate with the player.
-                            const message = {
-                                method: 'setVolume',
-                                value: volume
-                            };
-                            // It's crucial to send the message to the correct origin.
-                            iframe.contentWindow.postMessage(message, 'https://player.vimeo.com');
-
-                            // Listen for the 'ready' event to ensure the player is ready to receive commands.
-                            const readyListener = (event) => {
-                                if (event.origin === 'https://player.vimeo.com' && event.data === 'ready') {
-                                    // Send the setVolume message *after* the player is ready.
-                                    iframe.contentWindow.postMessage(message, 'https://player.vimeo.com');
-
-                                    // Remove the event listener after it's been used.
-                                    window.removeEventListener('message', readyListener);
-                                }
-                            };
-                            window.addEventListener('message', readyListener);
-                        } else {
-                            console.error('iframe.contentWindow is not defined. Cannot set volume.');
-                        }
-                    } else {
-                        console.warn(Iframe with ID "${videoId}" not found.);
-                    }
+        // Intersection Observer for fade-in animations
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
                 }
-                // Set volume for the first video, after the Vimeo API is loaded and ready
-                setVideoVolume('video-1082028000', 0.2);
             });
+        }, {
+            threshold: 0.1
+        });
+        fadeElements.forEach(el => {
+            el.style.opacity = 0;
+            observer.observe(el);
+        });
 
-            // Ripple effect script
-            document.addEventListener('DOMContentLoaded', () => {
-                if (window.matchMedia("(hover: hover)").matches) {
-                    let mouseX = 0;
-                    let mouseY = 0;
+        // Initialize on DOM load for Vimeo API and volume
+        document.addEventListener('DOMContentLoaded', () => {
+            const tag = document.createElement('script');
+            tag.src = "https://player.vimeo.com/api/player.js";
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-                    document.addEventListener('mousemove', (e) => {
-                        mouseX = e.clientX;
-                        mouseY = e.clientY;
-                        createRipple();
-                    });
+            // Esta função para setar volume via postMessage pode ser mais complexa que o necessário
+            // Se o método Vimeo.Player funciona (como no script mais abaixo), ele é preferível.
+            // Vou manter o script Vimeo.Player mais abaixo e comentar esta parte por enquanto
+            // para evitar conflitos ou duplicação de lógica de volume.
 
-                    function createRipple() {
-                        const ripple = document.createElement('div');
-                        ripple.classList.add('water-ripple');
-                        ripple.style.left = ${mouseX}px;
-                        ripple.style.top = ${mouseY}px;
-                        document.body.appendChild(ripple);
+            /*
+            function setVideoVolume(videoId, volume) {
+                const iframe = document.getElementById(videoId);
+                if (iframe) {
+                    if (iframe.contentWindow) {
+                        const message = {
+                            method: 'setVolume',
+                            value: volume
+                        };
+                        // Post message when player is ready
+                        const player = new Vimeo.Player(iframe);
+                        player.ready().then(() => {
+                           player.setVolume(volume).catch(error => console.error('Error setting volume via API:', error));
+                        }).catch(error => console.error('Player not ready:', error));
 
-                        setTimeout(() => {
-                            ripple.remove();
-                        }, 1200);
+                    } else {
+                        console.error('iframe.contentWindow is not defined. Cannot set volume.');
+                    }
+                } else {
+                    console.warn(`Iframe with ID "${videoId}" not found.`);
                 }
             }
+            // Set volume for the first video, after the Vimeo API is loaded and ready
+            // setVideoVolume('video-1082028000', 0.2); // Movido para o script específico do Vimeo abaixo
+            */
         });
 
-        </script>
-        <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
-                data-cf-beacon='{"token": "d4347b66ddfe4a92bd9da109d7256319"}'></script>
-      <script src="https://player.vimeo.com/api/player.js"></script>
-<script>
-    const iframe = document.querySelector('iframe[src*="1082028000"]');
-    const player = new Vimeo.Player(iframe);
+    </script>
 
-    player.setVolume(0.2) // 0 (mudo) até 1 (máximo)
-        .then(function(volume) {
-            console.log('Volume definido para:', volume);
-        })
-        .catch(function(error) {
-            console.error('Erro ao definir volume:', error);
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const rippleWidth = 20;
+            const rippleHeight = 20;
+
+            function createRipple(x, y) {
+                const ripple = document.createElement('div');
+                ripple.classList.add('ripple');
+                
+                // Centraliza o ripple no cursor/toque
+                ripple.style.left = `${x - (rippleWidth / 2)}px`;
+                ripple.style.top = `${y - (rippleHeight / 2)}px`;
+                
+                // Define o tamanho do ripple (já definido no CSS também para referência)
+                ripple.style.width = `${rippleWidth}px`;
+                ripple.style.height = `${rippleHeight}px`;
+                
+                document.body.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 1200); // Duração da animação CSS
+            }
+            
+            let canCreateRipple = true;
+            document.addEventListener('mousemove', (e) => {
+                if (canCreateRipple) {
+                    createRipple(e.clientX, e.clientY);
+                    canCreateRipple = false;
+                    setTimeout(() => { // Limita a frequência de criação no mousemove
+                        canCreateRipple = true;
+                    }, 50); // Ajuste este valor para mais ou menos ripples (50ms = 20 ripples/seg max)
+                }
+            });
+            
+            document.addEventListener('touchmove', (e) => {
+                // Para touchmove, pode ser interessante criar um ripple por evento,
+                // pois os eventos são menos frequentes que mousemove.
+                // Ou adicionar um throttle similar ao mousemove se necessário.
+                const touch = e.touches[0];
+                createRipple(touch.clientX, touch.clientY);
+            });
+            
+            // Opcional: Adiciona alguns ripples iniciais para demonstração
+            // function addInitialRipples() {
+            //     for (let i = 0; i < 3; i++) {
+            //         setTimeout(() => {
+            //             const x = Math.random() * window.innerWidth;
+            //             const y = Math.random() * window.innerHeight;
+            //             createRipple(x, y);
+            //         }, i * 300);
+            //     }
+            // }
+            // addInitialRipples(); // Descomente para ativar ripples iniciais
         });
-</script>
+    </script>
 
-    </body>
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
+            data-cf-beacon='{"token": "d4347b66ddfe4a92bd9da109d7256319"}'></script>
+    <script src="https://player.vimeo.com/api/player.js"></script>
+    <script>
+        // Script para controlar o volume do vídeo específico do Vimeo
+        // Certifique-se que o ID 'video-1082028000' corresponde ao iframe correto
+        const iframeVideo1 = document.getElementById('video-1082028000'); 
+        if (iframeVideo1) {
+            const player1 = new Vimeo.Player(iframeVideo1);
+            player1.ready().then(function() {
+                player1.setVolume(0.2) // Volume de 0 (mudo) a 1 (máximo)
+                    .then(function(volume) {
+                        console.log('Volume do vídeo 1 definido para:', volume);
+                    })
+                    .catch(function(error) {
+                        console.error('Erro ao definir volume do vídeo 1:', error.name, error.message);
+                    });
+            }).catch(function(error) {
+                console.error('Erro ao preparar o player do vídeo 1:', error.name, error.message);
+            });
+        } else {
+            console.warn("Iframe com ID 'video-1082028000' não encontrado para controle de volume.");
+        }
+    </script>
+</body>
 </html>
