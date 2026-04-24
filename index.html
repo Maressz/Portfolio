@@ -11,15 +11,15 @@
     <style>
         /* Novo Ripple Clean Effect CSS */
         .ripple {
-            position: fixed; /* Usar fixed para que o ripple acompanhe o cursor na tela toda */
+            position: fixed;
             border-radius: 50%;
-            border: 1px solid rgba(100, 149, 237, 0.5); /* Cor do novo ripple */
+            border: 1px solid rgba(100, 149, 237, 0.5);
             transform: scale(0);
             pointer-events: none;
             animation: ripple-animation 1.2s ease-out;
-            z-index: 40; /* Para ficar acima do conteúdo mas abaixo de menus fixos (z-50) */
-            width: 20px; /* Tamanho definido no JS, mas pode ser referenciado aqui */
-            height: 20px;/* Tamanho definido no JS, mas pode ser referenciado aqui */
+            z-index: 40;
+            width: 20px;
+            height: 20px;
         }
         
         @keyframes ripple-animation {
@@ -29,13 +29,11 @@
             }
         }
 
-        /* Estilos originais do site (sem o water-ripple antigo) */
         body {
             font-family: 'Poppins', sans-serif;
             background-color: #141313;
             color: #E4EDEF;
             overflow-x: hidden;
-            /* cursor: default;  O novo script já lida bem com mouse/touch, não precisa forçar cursor */
         }
 
         .wave-container {
@@ -222,6 +220,7 @@
             }
         }
 
+        /* Container do vídeo atualizado para evitar interação e contornar erros do Vimeo grátis */
         .video-container-bg {
             position: absolute;
             top: 0;
@@ -230,6 +229,7 @@
             height: 100%;
             overflow: hidden;
             z-index: 0;
+            pointer-events: none; /* Impede que o usuário pause o vídeo ao clicar */
         }
 
         .video-container-bg iframe {
@@ -240,7 +240,9 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
+            /* Aumentamos a escala levemente (scale 1.05) para esconder bordas/controles forçados do Vimeo */
+            transform: translate(-50%, -50%) scale(1.05);
+            border: none;
         }
 
         .overlay {
@@ -292,12 +294,6 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
-        /* Media query para cursor em dispositivos sem hover, se necessário, pode ser adicionada aqui */
-        /* @media (hover: none) {
-            body {
-                cursor: default;
-            }
-        } */
     </style>
     <script type="text/javascript">
         (function (c, l, a, r, i, t, y) {
@@ -337,14 +333,13 @@
 
     <section class="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
         <div class="video-container-bg">
+            <!-- Removido o background=1 e inserido as tags manuais. A div acima cuida dos cliques e zoom -->
             <iframe
                     loading="eager"
-                    src="https://player.vimeo.com/video/1080537001?background=1&autoplay=1&loop=1&muted=1&title=0&byline=0&portrait=0&autopause=0"
+                    src="https://player.vimeo.com/video/1080537001?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&autopause=0&dnt=1"
                     frameborder="0"
-                    allow="autoplay; fullscreen"
-                    allowfullscreen
-                    webkitallowfullscreen
-                    mozallowfullscreen>
+                    allow="autoplay; fullscreen; picture-in-picture"
+                    allowfullscreen>
             </iframe>
         </div>
         <div class="overlay"></div>
@@ -582,46 +577,6 @@
             el.style.opacity = 0;
             observer.observe(el);
         });
-
-        // Initialize on DOM load for Vimeo API and volume
-        document.addEventListener('DOMContentLoaded', () => {
-            const tag = document.createElement('script');
-            tag.src = "https://player.vimeo.com/api/player.js";
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-            // Esta função para setar volume via postMessage pode ser mais complexa que o necessário
-            // Se o método Vimeo.Player funciona (como no script mais abaixo), ele é preferível.
-            // Vou manter o script Vimeo.Player mais abaixo e comentar esta parte por enquanto
-            // para evitar conflitos ou duplicação de lógica de volume.
-
-            /*
-            function setVideoVolume(videoId, volume) {
-                const iframe = document.getElementById(videoId);
-                if (iframe) {
-                    if (iframe.contentWindow) {
-                        const message = {
-                            method: 'setVolume',
-                            value: volume
-                        };
-                        // Post message when player is ready
-                        const player = new Vimeo.Player(iframe);
-                        player.ready().then(() => {
-                           player.setVolume(volume).catch(error => console.error('Error setting volume via API:', error));
-                        }).catch(error => console.error('Player not ready:', error));
-
-                    } else {
-                        console.error('iframe.contentWindow is not defined. Cannot set volume.');
-                    }
-                } else {
-                    console.warn(`Iframe with ID "${videoId}" not found.`);
-                }
-            }
-            // Set volume for the first video, after the Vimeo API is loaded and ready
-            // setVideoVolume('video-1082028000', 0.2); // Movido para o script específico do Vimeo abaixo
-            */
-        });
-
     </script>
 
     <script>
@@ -633,11 +588,9 @@
                 const ripple = document.createElement('div');
                 ripple.classList.add('ripple');
                 
-                // Centraliza o ripple no cursor/toque
                 ripple.style.left = `${x - (rippleWidth / 2)}px`;
                 ripple.style.top = `${y - (rippleHeight / 2)}px`;
                 
-                // Define o tamanho do ripple (já definido no CSS também para referência)
                 ripple.style.width = `${rippleWidth}px`;
                 ripple.style.height = `${rippleHeight}px`;
                 
@@ -645,7 +598,7 @@
                 
                 setTimeout(() => {
                     ripple.remove();
-                }, 1200); // Duração da animação CSS
+                }, 1200);
             }
             
             let canCreateRipple = true;
@@ -653,31 +606,16 @@
                 if (canCreateRipple) {
                     createRipple(e.clientX, e.clientY);
                     canCreateRipple = false;
-                    setTimeout(() => { // Limita a frequência de criação no mousemove
+                    setTimeout(() => { 
                         canCreateRipple = true;
-                    }, 50); // Ajuste este valor para mais ou menos ripples (50ms = 20 ripples/seg max)
+                    }, 50); 
                 }
             });
             
             document.addEventListener('touchmove', (e) => {
-                // Para touchmove, pode ser interessante criar um ripple por evento,
-                // pois os eventos são menos frequentes que mousemove.
-                // Ou adicionar um throttle similar ao mousemove se necessário.
                 const touch = e.touches[0];
                 createRipple(touch.clientX, touch.clientY);
             });
-            
-            // Opcional: Adiciona alguns ripples iniciais para demonstração
-            // function addInitialRipples() {
-            //     for (let i = 0; i < 3; i++) {
-            //         setTimeout(() => {
-            //             const x = Math.random() * window.innerWidth;
-            //             const y = Math.random() * window.innerHeight;
-            //             createRipple(x, y);
-            //         }, i * 300);
-            //     }
-            // }
-            // addInitialRipples(); // Descomente para ativar ripples iniciais
         });
     </script>
 
@@ -685,13 +623,11 @@
             data-cf-beacon='{"token": "d4347b66ddfe4a92bd9da109d7256319"}'></script>
     <script src="https://player.vimeo.com/api/player.js"></script>
     <script>
-        // Script para controlar o volume do vídeo específico do Vimeo
-        // Certifique-se que o ID 'video-1082028000' corresponde ao iframe correto
         const iframeVideo1 = document.getElementById('video-1082028000'); 
         if (iframeVideo1) {
             const player1 = new Vimeo.Player(iframeVideo1);
             player1.ready().then(function() {
-                player1.setVolume(0.2) // Volume de 0 (mudo) a 1 (máximo)
+                player1.setVolume(0.2)
                     .then(function(volume) {
                         console.log('Volume do vídeo 1 definido para:', volume);
                     })
@@ -701,8 +637,6 @@
             }).catch(function(error) {
                 console.error('Erro ao preparar o player do vídeo 1:', error.name, error.message);
             });
-        } else {
-            console.warn("Iframe com ID 'video-1082028000' não encontrado para controle de volume.");
         }
     </script>
 </body>
