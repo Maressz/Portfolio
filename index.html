@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mares Motion | Motion Design Portfolio</title>
     <link rel="icon" type="image/png" href="https://i.imgur.com/vMbLYnJ.png">
+    
+    <!-- Preload do vídeo de background para carregar o mais rápido possível (LCP) -->
+    <link rel="preload" as="video" href="images/waves.mp4" type="video/mp4">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -220,7 +224,7 @@
             }
         }
 
-        /* Container do vídeo atualizado para evitar interação e contornar erros do Vimeo grátis */
+        /* Container do vídeo atualizado para elemento <video> */
         .video-container-bg {
             position: absolute;
             top: 0;
@@ -232,17 +236,13 @@
             pointer-events: none; /* Impede que o usuário pause o vídeo ao clicar */
         }
 
-        .video-container-bg iframe {
-            width: 100vw;
-            height: 56.25vw;
-            min-height: 100vh;
-            min-width: 177.77vh;
+        .video-container-bg video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Faz o vídeo preencher a tela inteira, como um background-size: cover */
             position: absolute;
-            top: 50%;
-            left: 50%;
-            /* Aumentamos a escala levemente (scale 1.05) para esconder bordas/controles forçados do Vimeo */
-            transform: translate(-50%, -50%) scale(1.05);
-            border: none;
+            top: 0;
+            left: 0;
         }
 
         .overlay {
@@ -333,14 +333,10 @@
 
     <section class="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
         <div class="video-container-bg">
-            <!-- Removido o background=1 e inserido as tags manuais. A div acima cuida dos cliques e zoom -->
-            <iframe
-                    loading="eager"
-                    src="https://player.vimeo.com/video/1080537001?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&autopause=0&dnt=1"
-                    frameborder="0"
-                    allow="autoplay; fullscreen; picture-in-picture"
-                    allowfullscreen>
-            </iframe>
+            <!-- Vídeo local com autoplay, sem som, em loop e configurado para carregar e iniciar rapidamente -->
+            <video autoplay loop muted playsinline preload="auto">
+                <source src="images/waves.mp4" type="video/mp4">
+            </video>
         </div>
         <div class="overlay"></div>
         <div class="hero-content px-4 text-center max-w-4xl mx-auto">
