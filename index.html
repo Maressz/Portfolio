@@ -1,639 +1,750 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mares Motion | Motion Design Portfolio</title>
-    <link rel="icon" type="image/png" href="https://i.imgur.com/vMbLYnJ.png">
-    
-    <!-- Preload do vídeo de background para carregar o mais rápido possível (LCP) -->
-    <link rel="preload" as="video" href="images/waves.mp4" type="video/mp4">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        /* Novo Ripple Clean Effect CSS */
-        .ripple {
-            position: fixed;
-            border-radius: 50%;
-            border: 1px solid rgba(100, 149, 237, 0.5);
-            transform: scale(0);
-            pointer-events: none;
-            animation: ripple-animation 1.2s ease-out;
-            z-index: 40;
-            width: 20px;
-            height: 20px;
-        }
-        
-        @keyframes ripple-animation {
-            to {
-                transform: scale(3);
-                opacity: 0;
-            }
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mares Motion — Motion Design Studio</title>
+<meta name="description" content="Mares Motion — motion design that flows like the sea. Brand films, logo reveals and explainer animations, seven years deep.">
+<link rel="icon" type="image/png" href="https://i.imgur.com/vMbLYnJ.png">
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #141313;
-            color: #E4EDEF;
-            overflow-x: hidden;
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Hanken+Grotesk:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-        .wave-container {
-            position: relative;
-            width: 100%;
-            overflow: hidden;
-            height: 100px;
-        }
+<script>document.documentElement.classList.add('js')</script>
 
-        .wave {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 200%;
-            height: 100%;
-            background-repeat: repeat no-repeat;
-            background-position: 0 bottom;
-            transform-origin: center bottom;
-            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%234395A7" opacity=".25"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" fill="%234395A7" opacity=".5"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%2389CCD4"/></svg>');
-        }
+<style>
+/* ============================================================
+   MARES MOTION — "The Descent"
+   The page is a dive: it starts at the surface and darkens
+   as you scroll toward the abyss. A live depth gauge tracks
+   where you are. Everything else stays quiet around it.
+   ============================================================ */
 
-        .wave-top {
-            animation: wave 12s linear infinite;
-        }
+:root{
+  /* palette — ocean at night */
+  --surface:#0B1A21;      /* water at 0m            */
+  --abyss:#03070A;        /* water at 40m           */
+  --ink:#E9F3F5;          /* espuma / foam          */
+  --ink-dim:#9FB6BC;      /* mist                   */
+  --cyan:#89CCD4;         /* brand cyan             */
+  --teal:#4395A7;         /* brand teal             */
+  --bio:#7CF5DE;          /* bioluminescence (rare) */
+  --line:rgba(137,204,212,.14);
+  --card:#05090C;
 
-        .nav-link {
-            position: relative;
-        }
+  /* type */
+  --disp:'Syne',sans-serif;
+  --body:'Hanken Grotesk',sans-serif;
+  --mono:'Space Mono',monospace;
 
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -2px;
-            left: 0;
-            background-color: #89CCD4;
-            transition: width 0.3s ease;
-        }
+  /* layout */
+  --max:1180px;
+  --pad:clamp(1.25rem,4vw,2.5rem);
+  --gap:clamp(1rem,2.5vw,1.75rem);
+  --radius:14px;
+}
 
-        .nav-link:hover::after {
-            width: 100%;
-        }
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
-        .video-container {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            margin-bottom: 20px;
-        }
+body{
+  font-family:var(--body);
+  color:var(--ink);
+  background:var(--surface);
+  overflow-x:hidden;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
 
-        .video-container:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(137, 204, 212, 0.2);
-        }
+::selection{background:rgba(124,245,222,.25);color:var(--ink)}
 
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            background: #000;
-        }
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--bio);outline-offset:3px;border-radius:4px}
 
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
+/* ---------- depth background (JS interpolates the color) -- */
+#depth-bg{position:fixed;inset:0;z-index:-3;background:var(--surface)}
 
-        .contact-input {
-            background-color: rgba(228, 237, 239, 0.1);
-            border-bottom: 2px solid #4395A7;
-            transition: all 0.3s ease;
-        }
+/* drifting light blobs — caustics at the surface */
+.caustic{position:fixed;border-radius:50%;filter:blur(90px);z-index:-2;opacity:.4;pointer-events:none}
+.caustic.a{width:55vw;height:55vw;top:-18vw;left:-12vw;background:radial-gradient(circle,rgba(67,149,167,.55),transparent 65%);animation:drift-a 22s ease-in-out infinite alternate}
+.caustic.b{width:42vw;height:42vw;top:-6vw;right:-10vw;background:radial-gradient(circle,rgba(137,204,212,.4),transparent 65%);animation:drift-b 26s ease-in-out infinite alternate}
+@keyframes drift-a{to{transform:translate(8vw,6vh) scale(1.12)}}
+@keyframes drift-b{to{transform:translate(-6vw,9vh) scale(.92)}}
 
-        .contact-input:focus {
-            background-color: rgba(228, 237, 239, 0.2);
-            border-bottom-color: #89CCD4;
-        }
+/* bubbles */
+#bubbles{position:fixed;inset:0;z-index:-1;pointer-events:none}
 
-        .submit-btn {
-            background: linear-gradient(135deg, #4395A7 0%, #89CCD4 100%);
-            transition: all 0.3s ease;
-        }
+/* cursor ripple (kept from v1, retuned) */
+.ripple{
+  position:fixed;width:22px;height:22px;border-radius:50%;
+  border:1px solid rgba(124,245,222,.35);
+  transform:scale(0);pointer-events:none;z-index:60;
+  animation:ripple 1.1s ease-out forwards;
+}
+@keyframes ripple{to{transform:scale(3.2);opacity:0}}
 
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(137, 204, 212, 0.4);
-        }
+/* ============================ HEADER ====================== */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(4,9,13,.62);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.header-in{
+  max-width:var(--max);margin:0 auto;padding:.9rem var(--pad);
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+}
+.brand{display:flex;align-items:center;gap:.7rem}
+.brand img{height:30px;width:auto}
+.brand span{font-family:var(--mono);font-size:.68rem;letter-spacing:.22em;color:var(--ink-dim)}
 
-        .whatsapp-btn {
-            animation: pulse 2s infinite;
-        }
+nav.main{display:flex;gap:2.1rem}
+nav.main a{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-dim);
+  display:flex;align-items:baseline;gap:.45rem;
+  transition:color .25s;
+}
+nav.main a sup{font-size:.58rem;color:var(--teal);transition:color .25s}
+nav.main a:hover,nav.main a.active{color:var(--ink)}
+nav.main a:hover sup,nav.main a.active sup{color:var(--bio)}
 
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(67, 149, 167, 0.7);
-            }
-            70% {
-                box-shadow: 0 0 0 15px rgba(67, 149, 167, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(67, 149, 167, 0);
-            }
-        }
+.burger{display:none;background:none;border:0;cursor:pointer;padding:.4rem}
+.burger svg{display:block}
+.burger line{stroke:var(--ink);stroke-width:2;stroke-linecap:round;transition:.3s}
 
-        section {
-            scroll-margin-top: 100px;
-        }
+/* mobile menu */
+#menu{
+  position:fixed;inset:0;z-index:99;background:rgba(3,7,10,.96);
+  backdrop-filter:blur(10px);
+  display:flex;flex-direction:column;justify-content:center;gap:.6rem;
+  padding:0 9vw;visibility:hidden;opacity:0;transition:opacity .35s,visibility .35s;
+}
+#menu.open{visibility:visible;opacity:1}
+#menu a{
+  font-family:var(--disp);font-weight:800;font-size:clamp(2rem,9vw,3.2rem);
+  padding:.5rem 0;border-bottom:1px solid var(--line);
+  display:flex;align-items:baseline;gap:1rem;
+  transform:translateY(14px);opacity:0;transition:transform .45s,opacity .45s,color .25s;
+}
+#menu.open a{transform:none;opacity:1}
+#menu.open a:nth-child(2){transition-delay:.06s}
+#menu.open a:nth-child(3){transition-delay:.12s}
+#menu.open a:nth-child(4){transition-delay:.18s}
+#menu a small{font-family:var(--mono);font-weight:400;font-size:.7rem;letter-spacing:.2em;color:var(--teal)}
+#menu a:hover{color:var(--cyan)}
 
-        .fade-in {
-            animation: fadeIn 1s ease-in;
-        }
+@media(max-width:840px){
+  nav.main{display:none}
+  .burger{display:block}
+}
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
+/* ====================== DEPTH GAUGE ======================= */
+.gauge{
+  position:fixed;right:26px;top:50%;transform:translateY(-50%);
+  z-index:90;display:flex;flex-direction:column;align-items:center;gap:.9rem;
+}
+.gauge .readout{
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;
+  color:var(--cyan);writing-mode:vertical-rl;
+}
+.gauge .rail{position:relative;width:1px;height:42vh;min-height:260px;background:var(--line)}
+.gauge .tick{
+  position:absolute;left:50%;transform:translate(-50%,-50%);
+  width:18px;height:18px;display:grid;place-items:center;cursor:pointer;
+}
+.gauge .tick i{width:7px;height:1px;background:var(--teal);display:block;transition:.25s}
+.gauge .tick em{
+  position:absolute;right:16px;top:50%;transform:translateY(-50%);
+  font-family:var(--mono);font-style:normal;font-size:.6rem;letter-spacing:.14em;
+  color:var(--ink-dim);white-space:nowrap;opacity:0;transition:opacity .25s;
+}
+.gauge .tick:hover i,.gauge .tick.on i{background:var(--bio);width:11px}
+.gauge .tick:hover em,.gauge .tick.on em{opacity:1}
+.gauge .needle{
+  position:absolute;left:50%;top:0;width:9px;height:9px;
+  transform:translate(-50%,-50%) rotate(45deg);
+  background:var(--bio);box-shadow:0 0 12px rgba(124,245,222,.8);
+  transition:top .12s linear;
+}
+@media(max-width:1023px){.gauge{display:none}}
 
-            to {
-                opacity: 1;
-            }
-        }
+/* ========================= HERO =========================== */
+.hero{
+  position:relative;min-height:100svh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:7rem var(--pad) 5rem;overflow:hidden;
+}
+.hero video{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:.5;z-index:-1;
+}
+.hero::before{ /* darkening + vignette over video/caustics */
+  content:"";position:absolute;inset:0;z-index:0;
+  background:linear-gradient(180deg,rgba(3,7,10,.25) 0%,rgba(3,7,10,.05) 45%,rgba(11,26,33,.9) 100%);
+  pointer-events:none;
+}
+.hero::after{ /* grain */
+  content:"";position:absolute;inset:0;z-index:0;opacity:.05;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.hero>*{position:relative;z-index:1}
 
-        .logo-img {
-            max-width: 400px;
-            width: 70%;
-            height: auto;
-            margin-bottom: 1.5rem;
-        }
+.hero .eyebrow{
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.3em;
+  color:var(--cyan);text-transform:uppercase;margin-bottom:2.2rem;
+  display:inline-flex;align-items:center;gap:.7rem;
+}
+.eyebrow .pulse{
+  width:6px;height:6px;border-radius:50%;background:var(--bio);
+  box-shadow:0 0 0 0 rgba(124,245,222,.6);animation:sonar 2.4s infinite;
+}
+@keyframes sonar{70%{box-shadow:0 0 0 11px rgba(124,245,222,0)}100%{box-shadow:0 0 0 0 rgba(124,245,222,0)}}
 
-        .full-width-image {
-            width: 100vw;
-            position: relative;
-            left: 50%;
-            right: 50%;
-            margin-left: -50vw;
-            margin-right: -50vw;
-            margin-top: 40px;
-            margin-bottom: 40px;
-        }
+.hero .logo{width:min(210px,44vw);margin:0 auto 2.4rem;filter:drop-shadow(0 0 18px rgba(137,204,212,.22))}
 
-        .mares-logo {
-            max-width: 50px;
-            height: auto;
-        }
+h1{
+  font-family:var(--disp);font-weight:800;
+  font-size:clamp(2.5rem,7.2vw,5rem);
+  line-height:1.04;letter-spacing:-.02em;max-width:14ch;margin:0 auto 1.6rem;
+}
+h1 .sea{
+  background:linear-gradient(95deg,var(--teal),var(--cyan) 55%,var(--bio));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero p.sub{max-width:46ch;margin:0 auto 2.8rem;color:var(--ink-dim);font-size:clamp(1rem,1.6vw,1.15rem)}
 
-        .mares-logo2 {
-            max-width: 120px;
-            height: auto;
-        }
+.cta-row{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn{
+  font-family:var(--mono);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  padding:1rem 1.9rem;border-radius:999px;transition:.3s;display:inline-block;
+}
+.btn.primary{
+  background:linear-gradient(135deg,var(--teal),var(--cyan));color:#05161B;font-weight:700;
+}
+.btn.primary:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(137,204,212,.3)}
+.btn.ghost{border:1px solid var(--line);color:var(--ink)}
+.btn.ghost:hover{border-color:var(--cyan);color:var(--cyan)}
 
-        .footer-logo {
-            max-width: 150px;
-            height: auto;
-        }
+.scroll-cue{
+  position:absolute;bottom:2.2rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:.7rem;z-index:1;
+}
+.scroll-cue span{font-family:var(--mono);font-size:.6rem;letter-spacing:.32em;color:var(--ink-dim)}
+.scroll-cue i{width:1px;height:44px;background:linear-gradient(var(--cyan),transparent);display:block;animation:plumb 1.8s ease-in-out infinite}
+@keyframes plumb{0%,100%{transform:scaleY(.55);transform-origin:top}50%{transform:scaleY(1)}}
 
-        /* Custom CSS for elements Tailwind can't handle */
-        .wave-bg {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100px;
-            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%23141313" opacity=".25"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" fill="%23141313" opacity=".5"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%23141313"/></svg>');
-            background-size: cover;
-            background-repeat: no-repeat;
-            z-index: 10;
-            animation: wave 15s linear infinite;
-        }
+/* ======================== MARQUEE ========================= */
+.marquee{
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  overflow:hidden;padding:.85rem 0;
+}
+.marquee .track{display:flex;gap:3.2rem;width:max-content;animation:slide 30s linear infinite}
+.marquee span{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.26em;
+  color:var(--ink-dim);text-transform:uppercase;white-space:nowrap;
+}
+.marquee b{color:var(--teal);font-weight:400;margin-left:3.2rem}
+@keyframes slide{to{transform:translateX(-50%)}}
 
-        @keyframes wave {
-            0% {
-                background-position-x: 0;
-            }
+/* ======================== SECTIONS ======================== */
+main{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+section{padding:clamp(5rem,10vw,8rem) 0}
 
-            100% {
-                background-position-x: 1000px;
-            }
-        }
+.sec-head{margin-bottom:clamp(2.5rem,5vw,4rem)}
+.sec-head .eyebrow{
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--cyan);display:flex;align-items:center;gap:.7rem;margin-bottom:1.1rem;
+}
+.sec-head h2{
+  font-family:var(--disp);font-weight:700;letter-spacing:-.015em;
+  font-size:clamp(2rem,4.6vw,3.3rem);line-height:1.08;
+}
+.sec-head .lede{color:var(--ink-dim);max-width:52ch;margin-top:1rem;font-size:1.02rem}
 
-        /* Container do vídeo atualizado para elemento <video> */
-        .video-container-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 0;
-            pointer-events: none; /* Impede que o usuário pause o vídeo ao clicar */
-        }
+/* easing-curve wave divider — a nod to the graph editor */
+.ease-wave{margin-top:1.6rem;color:var(--teal);opacity:.65}
 
-        .video-container-bg video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Faz o vídeo preencher a tela inteira, como um background-size: cover */
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
+/* ========================= WORK =========================== */
+.stack{display:flex;flex-direction:column;gap:clamp(2.5rem,5vw,4rem)}
 
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 2;
-        }
+.card{position:relative}
+.frame{
+  position:relative;background:#000;border-radius:var(--radius);overflow:hidden;
+  border:1px solid var(--line);
+  box-shadow:0 14px 40px rgba(0,0,0,.45);
+  transition:transform .4s cubic-bezier(.2,.7,.2,1),box-shadow .4s,border-color .4s;
+}
+.card:hover .frame{
+  transform:translateY(-5px);
+  border-color:rgba(124,245,222,.35);
+  box-shadow:0 22px 50px rgba(0,0,0,.5),0 0 36px rgba(137,204,212,.14);
+}
+.ratio-169{aspect-ratio:16/9}
+.ratio-916{aspect-ratio:9/16}
+.frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 
-        .hero-content {
-            position: relative;
-            z-index: 20;
-        }
+.log{
+  display:flex;align-items:center;gap:.8rem;margin-top:.85rem;
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink-dim);
+}
+.log .dot{width:6px;height:6px;border-radius:50%;background:var(--teal);flex:none;transition:.3s}
+.card:hover .log .dot{background:var(--bio);box-shadow:0 0 10px rgba(124,245,222,.8)}
+.log .meta{margin-left:auto;color:rgba(159,182,188,.6);text-align:right}
 
-        .logo {
-            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
-            transition: all 0.3s ease;
-        }
+.grid-2{display:grid;grid-template-columns:1fr;gap:var(--gap)}
+@media(min-width:760px){.grid-2{grid-template-columns:1fr 1fr}}
 
-        .logo:hover {
-            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.4));
-            transform: scale(1.02);
-        }
+/* mixed row: wide film + true vertical piece */
+.row-mix{display:grid;grid-template-columns:1fr;gap:var(--gap)}
+.row-mix .portrait .frame{max-width:400px;margin:0 auto}
+@media(min-width:880px){
+  .row-mix{grid-template-columns:minmax(0,1fr) clamp(230px,27vw,320px);align-items:stretch}
+  .row-mix .portrait .frame{max-width:none;margin:0}
+  .row-mix .fill{display:flex;flex-direction:column}
+  .row-mix .fill .frame{flex:1;aspect-ratio:auto}
+  .row-mix .fill .frame iframe{
+    inset:auto;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:auto;height:auto;min-width:100%;min-height:100%;aspect-ratio:16/9;
+  }
+}
 
-        .video-overlay-text {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            color: white;
-            font-size: 1.5rem;
-            font-weight: bold;
-            z-index: 10;
-            padding: 0.5rem;
-            background-color: rgba(0, 0, 0, 0.6);
-            border-radius: 4px;
-        }
+/* ========================= ABOUT ========================== */
+.about-grid{display:grid;grid-template-columns:1fr;gap:clamp(2.5rem,5vw,4.5rem);align-items:center}
+@media(min-width:920px){.about-grid{grid-template-columns:1.05fr .95fr}}
+.about-copy img.mark{width:120px;margin-bottom:2rem}
+.about-copy p{margin-bottom:1.3rem;color:var(--ink-dim);font-size:1.05rem}
+.about-copy p strong{color:var(--ink);font-weight:600}
+.about-copy .tag{
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--teal);margin-top:2rem;display:flex;gap:1.6rem;flex-wrap:wrap;
+}
+.about-visual{position:relative}
+.about-visual img{border-radius:var(--radius);border:1px solid var(--line);box-shadow:0 18px 50px rgba(0,0,0,.45)}
+.about-visual::after{
+  content:"";position:absolute;inset:auto -14px -14px auto;width:58%;height:58%;
+  border:1px solid rgba(67,149,167,.4);border-radius:var(--radius);z-index:-1;
+}
 
-        .grid-container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-        }
+/* ======================== CONTACT ========================= */
+#contact .rows{border-top:1px solid var(--line)}
+.row-link{
+  display:flex;align-items:center;gap:1.4rem;flex-wrap:wrap;
+  padding:1.9rem .4rem;border-bottom:1px solid var(--line);
+  transition:background .3s,padding .3s;
+}
+.row-link:hover{background:rgba(137,204,212,.04);padding-left:1rem}
+.row-link .lab{
+  font-family:var(--mono);font-size:.64rem;letter-spacing:.24em;color:var(--teal);
+  text-transform:uppercase;width:7.5rem;flex:none;
+}
+.row-link .val{
+  font-family:var(--disp);font-weight:700;letter-spacing:-.01em;
+  font-size:clamp(1.15rem,3.4vw,1.9rem);transition:color .3s;word-break:break-all;
+}
+.row-link:hover .val{color:var(--bio)}
+.row-link .arr{margin-left:auto;color:var(--teal);font-size:1.3rem;transition:transform .3s,color .3s}
+.row-link:hover .arr{transform:translateX(8px);color:var(--bio)}
+.contact-note{
+  margin-top:2rem;font-family:var(--mono);font-size:.66rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--ink-dim);
+}
 
-        @media (min-width: 768px) {
-            .grid-container {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-    </style>
-    <script type="text/javascript">
-        (function (c, l, a, r, i, t, y) {
-            c[a] = c[a] || function () {
-                (c[a].q = c[a].q || []).push(arguments)
-            };
-            t = l.createElement(r);
-            t.async = 1;
-            t.src = "https://www.clarity.ms/tag/" + i;
-            y = l.getElementsByTagName(r)[0];
-            y.parentNode.insertBefore(t, y);
-        })(window, document, "clarity", "script", "resm485i3e");
-    </script>
+/* whatsapp float */
+.wa-float{
+  position:fixed;bottom:1.6rem;right:1.6rem;z-index:80;
+  width:54px;height:54px;border-radius:50%;background:#25D366;color:#04220F;
+  display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.4);
+  animation:wa-pulse 2.4s infinite;transition:transform .25s;
+}
+.wa-float:hover{transform:scale(1.08)}
+@keyframes wa-pulse{
+  0%{box-shadow:0 8px 24px rgba(0,0,0,.4),0 0 0 0 rgba(37,211,102,.45)}
+  70%{box-shadow:0 8px 24px rgba(0,0,0,.4),0 0 0 16px rgba(37,211,102,0)}
+  100%{box-shadow:0 8px 24px rgba(0,0,0,.4),0 0 0 0 rgba(37,211,102,0)}
+}
+@media(min-width:1024px){.wa-float{right:5.2rem}}
+
+/* ========================= FOOTER ========================= */
+footer{border-top:1px solid var(--line);padding:3.5rem var(--pad) 7rem;text-align:center}
+footer img{width:130px;margin:0 auto 1.6rem;opacity:.9}
+footer .fine{font-family:var(--mono);font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-dim)}
+footer .up{
+  display:inline-flex;align-items:center;gap:.6rem;margin-top:1.8rem;
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--cyan);transition:color .25s;
+}
+footer .up:hover{color:var(--bio)}
+
+/* ======================== REVEALS ========================= */
+.js .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.js .reveal.in{opacity:1;transform:none}
+.js .reveal[data-d="1"]{transition-delay:.1s}
+.js .reveal[data-d="2"]{transition-delay:.2s}
+
+/* =================== REDUCED MOTION ======================= */
+@media (prefers-reduced-motion:reduce){
+  .caustic,.scroll-cue i,.eyebrow .pulse,.wa-float{animation:none}
+  .marquee .track{animation:none;flex-wrap:wrap}
+  .js .reveal{opacity:1;transform:none;transition:none}
+  #bubbles{display:none}
+}
+</style>
 </head>
-<body class="relative"> <div id="home"></div>
+<body>
 
-    <header class="fixed top-0 left-0 w-full bg-black bg-opacity-90 z-50 shadow-md">
-        <div class="container mx-auto px-6 py-4">
-            <div class="flex justify-between items-center">
-                <div>
-                    <img src="https://i.imgur.com/lDI5kxW.png" alt="Mares Motion Logo" class="mares-logo">
-                </div>
-                <nav class="hidden md:block">
-                    <ul class="flex space-x-8">
-                        <li><a href="#home" class="nav-link text-[#E4EDEF] hover:text-[#89CCD4]">Home</a></li>
-                        <li><a href="#portfolio" class="nav-link text-[#E4EDEF] hover:text-[#89CCD4]">Portfolio</a></li>
-                        <li><a href="#about" class="nav-link text-[#E4EDEF] hover:text-[#89CCD4]">About</a></li>
-                        <li><a href="#contact" class="nav-link text-[#E4EDEF] hover:text-[#89CCD4]">Contact</a></li>
-                    </ul>
-                </nav>
-                <button class="md:hidden text-[#E4EDEF]">
-                    <i class="fas fa-bars text-2xl"></i>
-                </button>
-            </div>
+<div id="depth-bg" aria-hidden="true"></div>
+<div class="caustic a" aria-hidden="true"></div>
+<div class="caustic b" aria-hidden="true"></div>
+<canvas id="bubbles" aria-hidden="true"></canvas>
+
+<!-- ========================= HEADER ======================== -->
+<header>
+  <div class="header-in">
+    <a href="#home" class="brand" aria-label="Mares Motion — back to top">
+      <img src="https://i.imgur.com/lDI5kxW.png" alt="Mares Motion">
+      <span>MARES&nbsp;MOTION</span>
+    </a>
+    <nav class="main" aria-label="Primary">
+      <a href="#home"><sup>00M</sup>Surface</a>
+      <a href="#portfolio"><sup>10M</sup>Work</a>
+      <a href="#about"><sup>30M</sup>Studio</a>
+      <a href="#contact"><sup>40M</sup>Contact</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+      <svg width="26" height="18" viewBox="0 0 26 18"><line x1="1" y1="2" x2="25" y2="2"/><line x1="1" y1="9" x2="25" y2="9"/><line x1="1" y1="16" x2="25" y2="16"/></svg>
+    </button>
+  </div>
+</header>
+
+<div id="menu" aria-hidden="true">
+  <a href="#home"><small>00M</small>Surface</a>
+  <a href="#portfolio"><small>10M</small>Work</a>
+  <a href="#about"><small>30M</small>Studio</a>
+  <a href="#contact"><small>40M</small>Contact</a>
+</div>
+
+<!-- ====================== DEPTH GAUGE ====================== -->
+<aside class="gauge" aria-hidden="true">
+  <div class="readout" id="readout">DEPTH 00M</div>
+  <div class="rail" id="rail">
+    <span class="tick" data-target="#home"><i></i><em>00 · SURFACE</em></span>
+    <span class="tick" data-target="#portfolio"><i></i><em>10 · WORK</em></span>
+    <span class="tick" data-target="#about"><i></i><em>30 · STUDIO</em></span>
+    <span class="tick" data-target="#contact"><i></i><em>40 · CONTACT</em></span>
+    <span class="needle" id="needle"></span>
+  </div>
+</aside>
+
+<!-- ========================== HERO ========================= -->
+<section class="hero" id="home">
+  <!-- optional ocean footage: shows if images/waves.mp4 exists, otherwise the CSS sea takes over -->
+  <video autoplay loop muted playsinline preload="metadata" aria-hidden="true">
+    <source src="images/waves.mp4" type="video/mp4">
+  </video>
+
+  <p class="eyebrow"><span class="pulse"></span>Motion design studio · 7 years deep</p>
+  <img class="logo" src="https://i.imgur.com/lDI5kxW.png" alt="Mares Motion logo">
+  <h1>Motion that <span class="sea">flows like the sea</span>.</h1>
+  <p class="sub">Animations that blend technique, vision and commitment — in every single frame.</p>
+  <div class="cta-row">
+    <a class="btn primary" href="#portfolio">View the work ↓</a>
+    <a class="btn ghost" href="#contact">Start a project</a>
+  </div>
+
+  <div class="scroll-cue" aria-hidden="true">
+    <span>SCROLL TO DESCEND</span><i></i>
+  </div>
+</section>
+
+<!-- ========================= MARQUEE ======================= -->
+<div class="marquee" aria-hidden="true">
+  <div class="track">
+    <span>Motion design <b>≈</b> 2D animation <b>≈</b> Logo reveals <b>≈</b> Explainer films <b>≈</b> Brand motion <b>≈</b> Visual storytelling <b>≈</b></span>
+    <span>Motion design <b>≈</b> 2D animation <b>≈</b> Logo reveals <b>≈</b> Explainer films <b>≈</b> Brand motion <b>≈</b> Visual storytelling <b>≈</b></span>
+  </div>
+</div>
+
+<main>
+
+  <!-- ========================= WORK ======================== -->
+  <section id="portfolio">
+    <div class="sec-head reveal">
+      <p class="eyebrow"><span class="pulse"></span>Depth −10M · Selected work</p>
+      <h2>Dive into the work.</h2>
+      <p class="lede">Seven years of motion design, frame by frame — films, reveals and loops built to move people.</p>
+      <svg class="ease-wave" width="170" height="44" viewBox="0 0 170 44" fill="none" aria-hidden="true">
+        <path d="M4 38 C 52 38, 60 6, 110 6 S 166 6, 166 6" stroke="currentColor" stroke-width="1.4"/>
+        <line x1="4" y1="38" x2="40" y2="38" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3" opacity=".5"/>
+        <line x1="110" y1="6" x2="76" y2="6" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3" opacity=".5"/>
+        <circle cx="4" cy="38" r="3" fill="currentColor"/>
+        <circle cx="40" cy="38" r="2.4" fill="none" stroke="currentColor"/>
+        <circle cx="76" cy="6" r="2.4" fill="none" stroke="currentColor"/>
+        <circle cx="166" cy="6" r="3" fill="currentColor"/>
+      </svg>
+    </div>
+
+    <div class="stack">
+
+      <!-- 01 · showreel -->
+      <figure class="card reveal">
+        <div class="frame ratio-169">
+          <iframe id="video-1082028000"
+            src="https://player.vimeo.com/video/1082028000?autoplay=0&loop=0&muted=0&controls=1&title=0&byline=0&portrait=0&autopause=0&quality=auto&dnt=1"
+            allow="autoplay; fullscreen; picture-in-picture" allowfullscreen
+            title="Mares Motion — Showreel"></iframe>
         </div>
-    </header>
+        <figcaption class="log"><span class="dot"></span>Log 01 — Showreel<span class="meta">Sound on · Press play</span></figcaption>
+      </figure>
 
-    <section class="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
-        <div class="video-container-bg">
-            <!-- Vídeo local com autoplay, sem som, em loop e configurado para carregar e iniciar rapidamente -->
-            <video autoplay loop muted playsinline preload="auto">
-                <source src="images/waves.mp4" type="video/mp4">
-            </video>
+      <!-- 02 · featured film -->
+      <figure class="card reveal">
+        <div class="frame ratio-169">
+          <iframe loading="lazy"
+            src="https://player.vimeo.com/video/672767070?autoplay=0&loop=0&muted=0&controls=1&title=0&byline=0&portrait=0&autopause=0&quality=auto&dnt=1"
+            allow="autoplay; fullscreen; picture-in-picture" allowfullscreen
+            title="Mares Motion — Featured film"></iframe>
         </div>
-        <div class="overlay"></div>
-        <div class="hero-content px-4 text-center max-w-4xl mx-auto">
-            <div class="logo mb-8">
-                <img src="https://i.imgur.com/lDI5kxW.png" alt="Motion Design Studio Logo" class="mx-auto w-64 md:w-80">
-            </div>
-            <p class="text-lg md:text-xl lg:text-2xl font-light mb-12 leading-relaxed opacity-90">
-                Motion design that flows like the sea — creating animations that blend technique, vision, and commitment
-                in every frame.
-            </p>
-            <a href="#portfolio"
-               class="bg-[#1a365d] hover:bg-[#2c5282] text-white font-medium py-3 px-8 rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg inline-block">
-                Explore Work
-            </a>
+        <figcaption class="log"><span class="dot"></span>Log 02 — Featured film<span class="meta">Sound on · Press play</span></figcaption>
+      </figure>
+
+      <!-- 03 · logo reveal -->
+      <figure class="card reveal">
+        <div class="frame ratio-169">
+          <iframe loading="lazy"
+            src="https://player.vimeo.com/video/1082029738?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0&quality=auto&dnt=1"
+            allow="autoplay; fullscreen" allowfullscreen
+            title="Mares Motion — Logo reveal"></iframe>
         </div>
-    </section>
+        <figcaption class="log"><span class="dot"></span>Log 03 — Logo reveal<span class="meta">Loop · Silent</span></figcaption>
+      </figure>
 
-    <main class="container mx-auto px-6 pb-20">
-        <section id="portfolio" class="py-20 fade-in">
-            <div class="flex justify-center mb-16">
-                <div class="text-center px-4 py-2">
-                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-2">
-                        PORTIFOLIO
-                    </h2>
-                    <p class="text-white text-lg md:text-xl font-medium">
-                        Dive into the videos below — each one created by me over 7 years of experience in motion design.
-                    </p>
-                </div>
-            </div>
+      <!-- 04 + 05 · wide film + true vertical -->
+      <div class="row-mix">
+        <figure class="card fill reveal">
+          <div class="frame ratio-169">
+            <iframe loading="lazy"
+              src="https://player.vimeo.com/video/1082029360?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0&quality=auto&dnt=1"
+              allow="autoplay; fullscreen" allowfullscreen
+              title="Mares Motion — Animated cast"></iframe>
+          </div>
+          <figcaption class="log"><span class="dot"></span>Log 04 — Animated cast<span class="meta">Loop · Silent</span></figcaption>
+        </figure>
+        <figure class="card portrait reveal" data-d="1">
+          <div class="frame ratio-916">
+            <iframe loading="lazy"
+              src="https://player.vimeo.com/video/1082029270?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0&quality=auto&dnt=1"
+              allow="autoplay; fullscreen" allowfullscreen
+              title="Mares Motion — Vertical format"></iframe>
+          </div>
+          <figcaption class="log"><span class="dot"></span>Log 05 — Vertical<span class="meta">9:16 · Loop</span></figcaption>
+        </figure>
+      </div>
 
-            <div class="space-y-20">
-                <div class="video-container">
-                    <div class="video-wrapper">
-                        <iframe
-                                loading="lazy"
-                                id="video-1082028000"
-                                src="https://player.vimeo.com/video/1082028000?autoplay=1&loop=0&muted=0&controls=1&title=0&byline=0&portrait=0&autopause=0&quality=auto&dnt=1"
-                                frameborder="0"
-                                allow="autoplay; fullscreen"
-                                allowfullscreen
-                                webkitallowfullscreen
-                                mozallowfullscreen>
-                        </iframe>
-                    </div>
-                </div>
+      <!-- 06 + 07 · client work -->
+      <div class="grid-2">
+        <figure class="card reveal">
+          <div class="frame ratio-169">
+            <iframe loading="lazy"
+              src="https://player.vimeo.com/video/767417042?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0&quality=auto&dnt=1"
+              allow="autoplay; fullscreen" allowfullscreen
+              title="Mares Motion — Nethone"></iframe>
+          </div>
+          <figcaption class="log"><span class="dot"></span>Log 06 — Nethone<span class="meta">Client · Loop</span></figcaption>
+        </figure>
+        <figure class="card reveal" data-d="1">
+          <div class="frame ratio-169">
+            <iframe loading="lazy"
+              src="https://player.vimeo.com/video/767413928?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0&quality=auto&dnt=1"
+              allow="autoplay; fullscreen" allowfullscreen
+              title="Mares Motion — Rede Salesiana"></iframe>
+          </div>
+          <figcaption class="log"><span class="dot"></span>Log 07 — Rede Salesiana<span class="meta">Client · Loop</span></figcaption>
+        </figure>
+      </div>
 
-                <div class="video-container">
-                    <div class="video-wrapper">
-                        <iframe src="https://player.vimeo.com/video/672767070?autoplay=0&loop=0&muted=0&controls=1&title=0&byline=0&portrait=0&autopause=0&quality=auto&dnt=1"
-                                class="absolute top-0 left-0 w-full h-full z-0" 
-                                frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen>
-                        </iframe>
-                    </div>
-                </div>
+    </div>
+  </section>
 
-                <div class="video-container">
-                    <div class="video-wrapper">
-                        <iframe
-                                loading="lazy"
-                                src="https://player.vimeo.com/video/1082029738?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0&quality=auto&dnt=1"
-                                frameborder="0"
-                                allow="autoplay; fullscreen"
-                                allowfullscreen
-                                webkitallowfullscreen
-                                mozallowfullscreen>
-                        </iframe>
-                    </div>
-                    <div class="video-overlay-text">Logo Reveal</div>
-                </div>
+  <!-- ========================= ABOUT ======================= -->
+  <section id="about">
+    <div class="sec-head reveal">
+      <p class="eyebrow"><span class="pulse"></span>Depth −30M · The studio</p>
+      <h2>Below the surface.</h2>
+    </div>
 
-                <div class="grid-container">
-                    <div class="video-container">
-                        <div class="video-wrapper">
-                            <iframe
-                                    loading="lazy"
-                                    src="https://player.vimeo.com/video/1082029360?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0&quality=auto&dnt=1"
-                                    frameborder="0"
-                                    allow="autoplay; fullscreen"
-                                    allowfullscreen
-                                    webkitallowfullscreen
-                                    mozallowfullscreen>
-                            </iframe>
-                        </div>
-                        <div class="video-overlay-text">Animated Cast</div>
-                    </div>
-                    <div class="video-container">
-                        <div class="video-wrapper">
-                            <iframe
-                                    loading="lazy"
-                                    src="https://player.vimeo.com/video/1082029270?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0&quality=auto&dnt=1"
-                                    frameborder="0"
-                                    allow="autoplay; fullscreen"
-                                    allowfullscreen
-                                    webkitallowfullscreen
-                                    mozallowfullscreen>
-                            </iframe>
-                        </div>
-                        <div class="video-overlay-text">Vertical Format</div>
-                    </div>
-                </div>
+    <div class="about-grid">
+      <div class="about-copy reveal">
+        <img class="mark" src="https://i.imgur.com/lb1kQp1.png" alt="Mares Motion mark">
+        <p><strong>Mares Motion</strong> is a creative studio specializing in motion design and visual storytelling. Inspired by the fluidity and depth of the ocean, we create captivating animations that bring ideas to life.</p>
+        <p>Our approach combines <strong>technical precision with artistic vision</strong>, resulting in work that is both visually stunning and strategically effective.</p>
+        <p>Whether you need promotional videos, explainer animations, or branded motion graphics, we're here to help your message flow beautifully.</p>
+        <div class="tag"><span>≈ 7 years in motion</span><span>≈ Based in Brazil</span><span>≈ Working worldwide</span></div>
+      </div>
+      <div class="about-visual reveal" data-d="1">
+        <img src="https://i.imgur.com/xpT87AI.png" alt="Mares Motion — studio visual">
+      </div>
+    </div>
+  </section>
 
-                <div class="grid-container">
-                    <div class="video-container">
-                        <div class="video-wrapper">
-                            <iframe
-                                    loading="lazy"
-                                    src="https://player.vimeo.com/video/767417042?share=copy&autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0&quality=auto&dnt=1"
-                                    frameborder="0"
-                                    allow="autoplay; fullscreen"
-                                    allowfullscreen
-                                    webkitallowfullscreen
-                                    mozallowfullscreen>
-                            </iframe>
-                        </div>
-                        <div class="video-overlay-text">Nethone</div>
-                    </div>
-                    <div class="video-container">
-                        <div class="video-wrapper">
-                            <iframe
-                                   loading="lazy"
-                                   src="https://player.vimeo.com/video/767413928?share=copy&autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0&quality=auto&dnt=1"
-                                   frameborder="0"
-                                   allow="autoplay; fullscreen"
-                                   allowfullscreen
-                                   webkitallowfullscreen
-                                   mozallowfullscreen>
-                            </iframe>
-                        </div>
-                        <div class="video-overlay-text">Rede Salesiana</div>
-                    </div>
-                </div>
-            </div>
-        </section>
+  <!-- ======================== CONTACT ====================== -->
+  <section id="contact">
+    <div class="sec-head reveal">
+      <p class="eyebrow"><span class="pulse"></span>Depth −40M · Make contact</p>
+      <h2>Start a project.</h2>
+      <p class="lede">Tell us about it — we'll bring the current.</p>
+    </div>
 
-        <section id="about" class="py-20 fade-in">
-            <div class="flex flex-col lg:flex-row items-center gap-12">
-                <div class="lg:w-1/2">
-                    <div class="mb-8">
-                        <img src="https://i.imgur.com/lb1kQp1.png" alt="Mares Motion Logo" class="mares-logo2">
-                    </div>
-                    <p class="text-lg mb-6">
-                        Mares Motion is a creative studio specializing in motion design and visual storytelling. Inspired by the
-                        fluidity and depth of the ocean, we create captivating animations that bring ideas to life.
-                    </p>
-                    <p class="text-lg mb-6">
-                        Our approach combines technical precision with artistic vision, resulting in work that is both visually
-                        stunning and strategically effective.
-                    </p>
-                    <p class="text-lg">
-                        Whether you need promotional videos, explainer animations, or branded motion graphics, we're here to help
-                        your message flow beautifully.
-                    </p>
-                </div>
-                <div class="lg:w-1/2">
-                    <div class="rounded-xl overflow-hidden">
-                        <img src="https://i.imgur.com/xpT87AI.png" alt="About Side Image"
-                             class="w-3/4 h-auto rounded-xl shadow-lg">
-                    </div>
-                </div>
-            </div>
-        </section>
+    <div class="rows reveal">
+      <a class="row-link" href="mailto:matheusresende47@gmail.com">
+        <span class="lab">Email</span>
+        <span class="val">matheusresende47@gmail.com</span>
+        <span class="arr">→</span>
+      </a>
+      <a class="row-link" href="https://api.whatsapp.com/send?phone=5531991976508" target="_blank" rel="noopener">
+        <span class="lab">WhatsApp</span>
+        <span class="val">+55 31 99197-6508</span>
+        <span class="arr">→</span>
+      </a>
+    </div>
+    <p class="contact-note reveal" data-d="1">Signal travels fast underwater — we reply quickly.</p>
+  </section>
 
-        <section id="contact" class="py-20 fade-in">
-            <div class="flex justify-center mb-16">
-            </div>
-            <div class="flex flex-col lg:flex-row gap-12">
-                <div class="lg:w-1/2">
-                    <h3 class="text-2xl font-bold mb-6 text-[#E4EDEF]">Contact Information</h3>
-                    <div class="space-y-6">
-                        <div class="flex items-start">
-                            <div class="text-[#89CCD4] mr-4 mt-1">
-                                <i class="fas fa-envelope text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-semibold text-[#E4EDEF]">Email</h4>
-                                <a href="mailto:matheusresende47@gmail.com"
-                                   class="text-[#89CCD4] hover:underline">matheusresende47@gmail.com</a>
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <div class="text-[#89CCD4] mr-4 mt-1">
-                                <i class="fab fa-whatsapp text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-semibold text-[#E4EDEF]">WhatsApp</h4>
-                                <a href="https://api.whatsapp.com/send?phone=5531991976508"
-                                   class="text-[#89CCD4] hover:underline">+55 31 99197-6508</a>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="https://api.whatsapp.com/send?phone=5531991976508"
-                       class="fixed bottom-8 right-8 bg-[#25D366] text-white w-16 h-16 rounded-full flex items-center justify-center text-2xl shadow-lg whatsapp-btn z-50">
-                        <i class="fab fa-whatsapp"></i>
-                    </a>
-                </div>
-            </div>
-        </section>
-    </main>
+</main>
 
-    <footer class="bg-black bg-opacity-70 py-8">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col items-center">
-                <img src="https://i.imgur.com/lb1kQp1.png" alt="Mares Motion Logo" class="footer-logo mb-6">
-                <div class="text-[#E4EDEF] mb-4 text-center">
-                    © 2025 Mares Motion – All rights reserved.
-                </div>
-            </div>
-        </div>
-    </footer>
+<!-- whatsapp float -->
+<a class="wa-float" href="https://api.whatsapp.com/send?phone=5531991976508" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.6-6.1c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.3-.7.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.4-2.9c-.3-.4 0-.6.2-.8l.4-.5c.1-.2.1-.3 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3a3 3 0 0 0-1 2.2c0 1.3 1 2.6 1.1 2.8.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2 0-.1-.2-.2-.5-.3z"/>
+  </svg>
+</a>
 
-    <script>
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
+<!-- ========================= FOOTER ======================== -->
+<footer>
+  <img src="https://i.imgur.com/lb1kQp1.png" alt="Mares Motion">
+  <p class="fine">© 2026 Mares Motion — All rights reserved</p>
+  <a class="up" href="#home">Back to surface ↑</a>
+</footer>
 
-        // Intersection Observer for fade-in animations
-        const fadeElements = document.querySelectorAll('.fade-in');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = 1;
-                }
-            });
-        }, {
-            threshold: 0.1
-        });
-        fadeElements.forEach(el => {
-            el.style.opacity = 0;
-            observer.observe(el);
-        });
-    </script>
+<!-- ======================== SCRIPTS ======================== -->
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script>
+(function(){
+  'use strict';
+  const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const rippleWidth = 20;
-            const rippleHeight = 20;
+  /* ---------- mobile menu ---------- */
+  const burger=$('#burger'), menu=$('#menu');
+  const setMenu=o=>{menu.classList.toggle('open',o);burger.setAttribute('aria-expanded',o);menu.setAttribute('aria-hidden',!o);document.body.style.overflow=o?'hidden':''};
+  burger.addEventListener('click',()=>setMenu(!menu.classList.contains('open')));
+  menu.addEventListener('click',e=>{if(e.target.closest('a'))setMenu(false)});
+  addEventListener('keydown',e=>{if(e.key==='Escape')setMenu(false)});
 
-            function createRipple(x, y) {
-                const ripple = document.createElement('div');
-                ripple.classList.add('ripple');
-                
-                ripple.style.left = `${x - (rippleWidth / 2)}px`;
-                ripple.style.top = `${y - (rippleHeight / 2)}px`;
-                
-                ripple.style.width = `${rippleWidth}px`;
-                ripple.style.height = `${rippleHeight}px`;
-                
-                document.body.appendChild(ripple);
-                
-                setTimeout(() => {
-                    ripple.remove();
-                }, 1200);
-            }
-            
-            let canCreateRipple = true;
-            document.addEventListener('mousemove', (e) => {
-                if (canCreateRipple) {
-                    createRipple(e.clientX, e.clientY);
-                    canCreateRipple = false;
-                    setTimeout(() => { 
-                        canCreateRipple = true;
-                    }, 50); 
-                }
-            });
-            
-            document.addEventListener('touchmove', (e) => {
-                const touch = e.touches[0];
-                createRipple(touch.clientX, touch.clientY);
-            });
-        });
-    </script>
+  /* ---------- scroll: depth bg + gauge + active nav -------- */
+  const bg=$('#depth-bg'), needle=$('#needle'), readout=$('#readout'), rail=$('#rail');
+  const ticks=$$('.gauge .tick'), navLinks=$$('nav.main a');
+  const c0=[11,26,33], c1=[3,7,10];                 /* surface → abyss */
+  const sections=['#home','#portfolio','#about','#contact'].map(id=>$(id));
+  const MAXM=42;
 
-    <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
-            data-cf-beacon='{"token": "d4347b66ddfe4a92bd9da109d7256319"}'></script>
-    <script src="https://player.vimeo.com/api/player.js"></script>
-    <script>
-        const iframeVideo1 = document.getElementById('video-1082028000'); 
-        if (iframeVideo1) {
-            const player1 = new Vimeo.Player(iframeVideo1);
-            player1.ready().then(function() {
-                player1.setVolume(0.2)
-                    .then(function(volume) {
-                        console.log('Volume do vídeo 1 definido para:', volume);
-                    })
-                    .catch(function(error) {
-                        console.error('Erro ao definir volume do vídeo 1:', error.name, error.message);
-                    });
-            }).catch(function(error) {
-                console.error('Erro ao preparar o player do vídeo 1:', error.name, error.message);
-            });
-        }
-    </script>
+  function placeTicks(){
+    const docH=document.documentElement.scrollHeight-innerHeight;
+    ticks.forEach((t,i)=>{
+      const f=Math.min(1,Math.max(0,sections[i].offsetTop/docH));
+      t.style.top=(f*100)+'%';
+    });
+  }
+  ticks.forEach((t,i)=>t.addEventListener('click',()=>sections[i].scrollIntoView({behavior:reduce?'auto':'smooth'})));
+
+  let ticking=false;
+  function onScroll(){
+    if(ticking)return; ticking=true;
+    requestAnimationFrame(()=>{
+      const docH=document.documentElement.scrollHeight-innerHeight;
+      const p=docH>0?Math.min(1,Math.max(0,scrollY/docH)):0;
+      const rgb=c0.map((v,i)=>Math.round(v+(c1[i]-v)*p));
+      bg.style.background=`rgb(${rgb.join(',')})`;
+      needle.style.top=(p*100)+'%';
+      readout.textContent='DEPTH '+String(Math.round(p*MAXM)).padStart(2,'0')+'M';
+
+      /* active states */
+      let idx=0;
+      sections.forEach((s,i)=>{if(scrollY+innerHeight*.45>=s.offsetTop)idx=i});
+      ticks.forEach((t,i)=>t.classList.toggle('on',i===idx));
+      navLinks.forEach((a,i)=>a.classList.toggle('active',i===idx));
+      ticking=false;
+    });
+  }
+  addEventListener('scroll',onScroll,{passive:true});
+  addEventListener('resize',()=>{placeTicks();onScroll()});
+  addEventListener('load',()=>{placeTicks();onScroll()});
+  placeTicks(); onScroll();
+
+  /* ---------- reveals ---------- */
+  const io=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}
+  }),{threshold:.12});
+  $$('.reveal').forEach(el=>io.observe(el));
+
+  /* ---------- bubbles ---------- */
+  const canvas=$('#bubbles');
+  if(canvas&&!reduce){
+    const x=canvas.getContext('2d');let W,H,bs=[],run=true;
+    const N=innerWidth<700?14:26;
+    function size(){W=canvas.width=innerWidth;H=canvas.height=innerHeight}
+    function spawn(b){b.x=Math.random()*W;b.y=H+Math.random()*H*.4;b.r=.8+Math.random()*2.1;b.v=.18+Math.random()*.42;b.a=.05+Math.random()*.12;b.ph=Math.random()*6.28;return b}
+    size();for(let i=0;i<N;i++){const b=spawn({});b.y=Math.random()*H;bs.push(b)}
+    function loop(t){
+      if(!run)return;
+      x.clearRect(0,0,W,H);
+      x.strokeStyle='rgba(137,204,212,1)';
+      bs.forEach(b=>{
+        b.y-=b.v;b.x+=Math.sin(t/1400+b.ph)*.22;
+        if(b.y<-8)spawn(b);
+        x.globalAlpha=b.a;x.beginPath();x.arc(b.x,b.y,b.r,0,6.28);x.stroke();
+      });
+      x.globalAlpha=1;requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+    addEventListener('resize',size);
+    document.addEventListener('visibilitychange',()=>{run=!document.hidden;if(run)requestAnimationFrame(loop)});
+  }
+
+  /* ---------- cursor ripple (desktop, fine pointers) ------- */
+  if(!reduce&&matchMedia('(pointer:fine)').matches){
+    let ok=true;
+    addEventListener('mousemove',e=>{
+      if(!ok)return;ok=false;
+      const r=document.createElement('div');r.className='ripple';
+      r.style.left=(e.clientX-11)+'px';r.style.top=(e.clientY-11)+'px';
+      document.body.appendChild(r);
+      setTimeout(()=>r.remove(),1100);
+      setTimeout(()=>ok=true,70);
+    },{passive:true});
+  }
+
+  /* ---------- showreel volume (kept from v1) ---------- */
+  const iframe1=$('#video-1082028000');
+  if(iframe1&&window.Vimeo){
+    const p1=new Vimeo.Player(iframe1);
+    p1.ready().then(()=>p1.setVolume(0.2)).catch(()=>{});
+  }
+})();
+</script>
+
+<!-- analytics (production) -->
+<script type="text/javascript">
+(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window,document,"clarity","script","resm485i3e");
+</script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "d4347b66ddfe4a92bd9da109d7256319"}'></script>
+
 </body>
 </html>
