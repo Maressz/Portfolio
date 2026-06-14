@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mares Motion — Motion Design Studio</title>
-<meta name="description" content="Mares Motion — motion design that flows like the sea. Brand films, logo reveals and explainer animations, seven years deep.">
+<meta name="description" content="Mares Motion — motion design that flows like the sea. Brand films, logo reveals and explainer animations, ten years deep.">
 <link rel="icon" type="image/png" href="https://i.imgur.com/vMbLYnJ.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -113,8 +113,11 @@ nav.main a:hover,nav.main a.active{color:var(--ink)}
 nav.main a:hover sup,nav.main a.active sup{color:var(--bio)}
 
 .burger{display:none;background:none;border:0;cursor:pointer;padding:.4rem}
-.burger svg{display:block}
-.burger line{stroke:var(--ink);stroke-width:2;stroke-linecap:round;transition:.3s}
+.burger svg{display:block;overflow:visible}
+.burger line{stroke:var(--ink);stroke-width:2;stroke-linecap:round;transition:transform .3s,opacity .3s;transform-box:fill-box;transform-origin:center}
+.burger[aria-expanded="true"] line:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger[aria-expanded="true"] line:nth-child(2){opacity:0}
+.burger[aria-expanded="true"] line:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
 /* mobile menu */
 #menu{
@@ -284,7 +287,6 @@ section{padding:clamp(5rem,10vw,8rem) 0}
   box-shadow:0 22px 50px rgba(0,0,0,.5),0 0 36px rgba(137,204,212,.14);
 }
 .ratio-169{aspect-ratio:16/9}
-.ratio-916{aspect-ratio:9/16}
 .frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 
 .log{
@@ -298,20 +300,6 @@ section{padding:clamp(5rem,10vw,8rem) 0}
 
 .grid-2{display:grid;grid-template-columns:1fr;gap:var(--gap)}
 @media(min-width:760px){.grid-2{grid-template-columns:1fr 1fr}}
-
-/* mixed row: wide film + true vertical piece */
-.row-mix{display:grid;grid-template-columns:1fr;gap:var(--gap)}
-.row-mix .portrait .frame{max-width:400px;margin:0 auto}
-@media(min-width:880px){
-  .row-mix{grid-template-columns:minmax(0,1fr) clamp(230px,27vw,320px);align-items:stretch}
-  .row-mix .portrait .frame{max-width:none;margin:0}
-  .row-mix .fill{display:flex;flex-direction:column}
-  .row-mix .fill .frame{flex:1;aspect-ratio:auto}
-  .row-mix .fill .frame iframe{
-    inset:auto;top:50%;left:50%;transform:translate(-50%,-50%);
-    width:auto;height:auto;min-width:100%;min-height:100%;aspect-ratio:16/9;
-  }
-}
 
 /* ========================= ABOUT ========================== */
 .about-grid{display:grid;grid-template-columns:1fr;gap:clamp(2.5rem,5vw,4.5rem);align-items:center}
@@ -447,7 +435,7 @@ footer .up:hover{color:var(--bio)}
     <source src="images/waves.mp4" type="video/mp4">
   </video>
 
-  <p class="eyebrow"><span class="pulse"></span>Motion design studio · 7 years deep</p>
+  <p class="eyebrow"><span class="pulse"></span>Motion design studio · 10 years deep</p>
   <img class="logo" src="https://i.imgur.com/lDI5kxW.png" alt="Mares Motion logo">
   <h1>Motion that <span class="sea">flows like the sea</span>.</h1>
   <p class="sub">Animations that blend technique, vision and commitment — in every single frame.</p>
@@ -476,7 +464,7 @@ footer .up:hover{color:var(--bio)}
     <div class="sec-head reveal">
       <p class="eyebrow"><span class="pulse"></span>Depth −10M · Selected work</p>
       <h2>Dive into the work.</h2>
-      <p class="lede">Seven years of motion design, frame by frame — films, reveals and loops built to move people.</p>
+      <p class="lede">Ten years of motion design, frame by frame — films, reveals and loops built to move people.</p>
       <svg class="ease-wave" width="170" height="44" viewBox="0 0 170 44" fill="none" aria-hidden="true">
         <path d="M4 38 C 52 38, 60 6, 110 6 S 166 6, 166 6" stroke="currentColor" stroke-width="1.4"/>
         <line x1="4" y1="38" x2="40" y2="38" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3" opacity=".5"/>
@@ -520,28 +508,28 @@ footer .up:hover{color:var(--bio)}
             allow="autoplay; fullscreen" allowfullscreen
             title="Mares Motion — Logo reveal"></iframe>
         </div>
-        <figcaption class="log"><span class="dot"></span>Log 03 — Logo reveal<span class="meta">Loop · Silent</span></figcaption>
+        <figcaption class="log"><span class="dot"></span>Log 03 — Logo reveal<span class="meta">Silent</span></figcaption>
       </figure>
 
-      <!-- 04 + 05 · wide film + true vertical -->
-      <div class="row-mix">
-        <figure class="card fill reveal">
+      <!-- 04 + 05 · animated pieces -->
+      <div class="grid-2">
+        <figure class="card reveal">
           <div class="frame ratio-169">
             <iframe loading="lazy"
               src="https://player.vimeo.com/video/1082029360?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0&quality=auto&dnt=1"
               allow="autoplay; fullscreen" allowfullscreen
               title="Mares Motion — Animated cast"></iframe>
           </div>
-          <figcaption class="log"><span class="dot"></span>Log 04 — Animated cast<span class="meta">Loop · Silent</span></figcaption>
+          <figcaption class="log"><span class="dot"></span>Log 04 — Animated cast<span class="meta">Silent</span></figcaption>
         </figure>
-        <figure class="card portrait reveal" data-d="1">
-          <div class="frame ratio-916">
+        <figure class="card reveal" data-d="1">
+          <div class="frame ratio-169">
             <iframe loading="lazy"
               src="https://player.vimeo.com/video/1082029270?autoplay=1&loop=1&muted=1&controls=0&title=0&byline=0&portrait=0&background=1&autopause=0&quality=auto&dnt=1"
               allow="autoplay; fullscreen" allowfullscreen
-              title="Mares Motion — Vertical format"></iframe>
+              title="Mares Motion — Motion piece"></iframe>
           </div>
-          <figcaption class="log"><span class="dot"></span>Log 05 — Vertical<span class="meta">9:16 · Loop</span></figcaption>
+          <figcaption class="log"><span class="dot"></span>Log 05 — Motion piece<span class="meta">Silent</span></figcaption>
         </figure>
       </div>
 
@@ -554,7 +542,7 @@ footer .up:hover{color:var(--bio)}
               allow="autoplay; fullscreen" allowfullscreen
               title="Mares Motion — Nethone"></iframe>
           </div>
-          <figcaption class="log"><span class="dot"></span>Log 06 — Nethone<span class="meta">Client · Loop</span></figcaption>
+          <figcaption class="log"><span class="dot"></span>Log 06 — Nethone<span class="meta">Client</span></figcaption>
         </figure>
         <figure class="card reveal" data-d="1">
           <div class="frame ratio-169">
@@ -563,7 +551,7 @@ footer .up:hover{color:var(--bio)}
               allow="autoplay; fullscreen" allowfullscreen
               title="Mares Motion — Rede Salesiana"></iframe>
           </div>
-          <figcaption class="log"><span class="dot"></span>Log 07 — Rede Salesiana<span class="meta">Client · Loop</span></figcaption>
+          <figcaption class="log"><span class="dot"></span>Log 07 — Rede Salesiana<span class="meta">Client</span></figcaption>
         </figure>
       </div>
 
@@ -583,7 +571,7 @@ footer .up:hover{color:var(--bio)}
         <p><strong>Mares Motion</strong> is a creative studio specializing in motion design and visual storytelling. Inspired by the fluidity and depth of the ocean, we create captivating animations that bring ideas to life.</p>
         <p>Our approach combines <strong>technical precision with artistic vision</strong>, resulting in work that is both visually stunning and strategically effective.</p>
         <p>Whether you need promotional videos, explainer animations, or branded motion graphics, we're here to help your message flow beautifully.</p>
-        <div class="tag"><span>≈ 7 years in motion</span><span>≈ Based in Brazil</span><span>≈ Working worldwide</span></div>
+        <div class="tag"><span>≈ 10 years in motion</span><span>≈ Based in Brazil</span><span>≈ Working worldwide</span></div>
       </div>
       <div class="about-visual reveal" data-d="1">
         <img src="https://i.imgur.com/xpT87AI.png" alt="Mares Motion — studio visual">
